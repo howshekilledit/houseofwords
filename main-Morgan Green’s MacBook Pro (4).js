@@ -1,5 +1,3 @@
-//follow the instructions in gray! 
-
 let face = "most expressive body part"; /*Between the red quotation marks, 
        in something like 3-8 words, 
        describe what "face" means to you. 
@@ -18,21 +16,20 @@ let face = "most expressive body part"; /*Between the red quotation marks,
        Don't use any additional quotation 
        marks ("") in your description. */
 
-let red = "color of blood"; //repeat the instructions with the word "red" (keep in the form of a noun)
+let red = "color of blood"; //repeat the instructions with the word "red" 
+//(keep in the form of a noun)
 
-let girl = ""; //repeat the instructions with the word "girl"
+let brain = "thinking muscle"; //repeat the instructions with the word brain
 
-let boy = ""; //repeat the instructions with the word "boy"
-
-let law = ""; //repeat the instructions with the word "law" 
-
-let masculine = "angry"; //define 'masculine' in adjective form, so 
+let masculine = "angry"; //define 'masculine' in ADJECTIVE form, so 
 //you could sub it into a sentence that uses the word as an adjective
 
+let think = "process information"; //define "think" in VERB form, so
+//you could sub it into a sentences that uses the word as a verb
+
 /*
-   when you have finished lines 1 - 27, 
-   press the floppy disk icon on the top menu to save your project,
-   then refresh the page (don't click the play button -- it's buggy)
+   when you have finished lines 1 - 31, 
+   save your program
 
    click the screen to the right to advance the program
 
@@ -66,10 +63,10 @@ let masculine = "angry"; //define 'masculine' in adjective form, so
 var madlibs = [];
 madlibs.push(`My ${face} became ${red} as I spoke. `);
 madlibs.push(`The sunset was ${red} last night. `);
-madlibs.push(`Most days I don't feel like a ${girl} or a ${boy}. `);
-madlibs.push(`I don't always remember the ${law}. `);
 madlibs.push(`${red} `)
 madlibs.push(`Today I'll dress more ${masculine} than usual. `)
+madlibs.push(`I ${think} therefore I ${think}. `);
+madlibs.push(`My ${brain} hurts when I ${think} this hard. `);
 
 var canvas = document.getElementById("renderCanvas");
 
@@ -295,7 +292,7 @@ var createScene = function () {
         var mirrorMaterial = new BABYLON.StandardMaterial("mirror", scene);
         mirrorMaterial.reflectionTexture = new BABYLON.MirrorTexture("mirror", 1024, scene, true);
         mirrorMaterial.reflectionTexture.mirrorPlane = reflector;
-        mirrorMaterial.reflectionTexture.renderList = [house, smallWall1, smallWall2, floor];
+        mirrorMaterial.reflectionTexture.renderList = [house, smallWall1, smallWall2, floor, rack];
         mirrorMaterial.reflectionTexture.level = 1;
 
         glass.material = mirrorMaterial;
