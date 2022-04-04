@@ -231,14 +231,26 @@ var createScene = function () {
     pointlight.specular = new BABYLON.Color3(0, 1, 0);
     pointlight.intensity = 1.5; 
     console.log(pointlight);
-    camera.position = new BABYLON.Vector3(11, 6.5, -25)
-    camera.setTarget(new BABYLON.Vector3(12, 2, -10));
-    let table = placeObject('./models/Side_Table_04_OBJ/',  'Side_Table_04.obj', new BABYLON.Vector3(15, 0, -16), scene, scale= 0.065);
-    let coke = placeObject('./models/',  'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(15, 3.5, -16), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+    camera.position = new BABYLON.Vector3(12, 6.5, -10)
+    camera.setTarget(new BABYLON.Vector3(11, 2, -25));
+    let table = placeObject('./models/Side_Table_04_OBJ/',  'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale= 0.065);
+    let coke = placeObject('./models/',  'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
     //END RED COKE ROOM
 
+     //BEGIN BLUE COKE ROOM ({red})
+    //  var pointlight = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(16, 5, 26), scene);
+    //  pointlight.diffuse = new BABYLON.Color3(1, 0, 0);
+    //  pointlight.specular = new BABYLON.Color3(0, 1, 0);
+    //  pointlight.intensity = 1.5; 
 
-    
+     //camera.position = new BABYLON.Vector3(11, 6.5, -11)
+     //camera.setTarget(new BABYLON.Vector3(12, 2, -10));
+     let blue_table = placeObject('./models/Side_Table_04_OBJ/',  'Side_Table_04.obj', new BABYLON.Vector3(15, 0, -16), scene, scale= 0.065);
+     let blue_coke = placeObject('./models/',  'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(15, 3.5, -16), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+     //END RED COKE ROOM
+
+
+
     // });
     //bed
     let bedpos = new BABYLON.Vector3(-18, 0, 9);
@@ -497,7 +509,7 @@ var createScene = function () {
     walls2[1].doorSpaces = [bDoorSpace];
 
     var bathroomWall = buildFromPlan(walls2, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "two");
-    bathroomWall.material = buildMat(madlibs[4], 30, 1900, 1000, "bathroom ", scene, "red", false);
+    //bathroomWall.material = buildMat(madlibs[4], 30, 1900, 1000, "bathroom ", scene, "red", false);
 
     var innerData3 = [15, 16, 15, 0, 24, 0, 26, 3, 26, 16];
 
