@@ -18,7 +18,7 @@ let face = ""; /*Between the red quotation marks,
        Don't use any additional quotation 
        marks ("") in your description. */
 
-let red = ""; //repeat the instructions with the word "red" (keep in the form of a noun)
+let red = "color of blood"; //repeat the instructions with the word "red" (keep in the form of a noun)
 
 let girl = ""; //repeat the instructions with the word "girl"
 
@@ -64,6 +64,7 @@ madlibs.push(`My ${face} became ${red} as I spoke. `);
 madlibs.push(`The sunset was ${red} last night. `);
 madlibs.push(`Most days I don't feel like a ${girl} or a ${boy}. `);
 madlibs.push(`I don't always remember the ${law}. `);
+madlibs.push(`${red} `)
 
 var canvas = document.getElementById("renderCanvas");
 
@@ -123,7 +124,7 @@ var createScene = function () {
     var scene = new BABYLON.Scene(engine);
 
     //build material with wallpaper texture
-   
+
 
     //animate camera to move from one position (dollly) and target(pivot) to another
     function animateCam(dolly1, dolly2, pivot1, pivot2) {
@@ -160,7 +161,8 @@ var createScene = function () {
     light.intensity = 0;
     //red sunset wall
     //camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 20, 10), scene); 
-    camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(-1.5, 5, 8.5), scene);
+    let opos = new BABYLON.Vector3(7, 5, 2); //iniitial position
+    camera = new BABYLON.FreeCamera("camera1", opos, scene);
     //var sunsetTarget = new BABYLON.Vector3(20, 2, 10);
     //var sunsetPos =  new BABYLON.Vector3(0, 6, 10);
     var sunsetRot = new BABYLON.Vector3(0.2, 1.6, 0);
@@ -169,8 +171,9 @@ var createScene = function () {
     var wPos = new BABYLON.Vector3(-8, 5, 5); //window position
     var wRot = new BABYLON.Vector3(.2, 0, 0); //window rotation
     //bird's eye
-    camera.position = new BABYLON.Vector3(0, 80, 0);
-    camera.setTarget(new BABYLON.Vector3(0, 0, 0));
+    // camera.position = new BABYLON.Vector3(0, 80, 0);
+    // camera.setTarget(new BABYLON.Vector3(0, 0, 0));
+    console.log(camera);
 
     var bPos = new BABYLON.Vector3(-28, 5, 8.5); //bedroom position
     var bRot = new BABYLON.Vector3(0.2, Math.PI / 2, 0);  //bedroom rotation
@@ -178,123 +181,21 @@ var createScene = function () {
     var sPos = new BABYLON.Vector3(-12, 4, -10);
     var gPos = new BABYLON.Vector3(-30, 4, 0); //garage position
     var gRot = new BABYLON.Vector3(0, Math.PI, 0); //garage rotation
-    //camera.rotation = gRot;
-    //camera.position = bPos;
 
     var anims;
-   let start = document.getElementById('start')
+    let start = document.getElementById('start')
     //start.addEventListener("click", function () {
-        start.style.display = 'none';
-        light.intensity = 2;
+    start.style.display = 'none';
+    light.intensity = 1;
     //});
-    canvas.addEventListener("click", function () {
-        //var anims = animateCam(camera.position, blushPos, camera.rotation, blushRot);
-        if (light.intensity > 0) {
-            switch (clicks) {
-                case 0:
-                    light.intensity = 0.7;
-                    anims = animateCam(camera.position, wPos, camera.rotation, wRot);
-                    clicks++;
-                    break;
-                case 1:
-                    light.intensity = 1.5;
-                    anims = animateCam(camera.position, bPos, camera.rotation, bRot);
-
-                    clicks++;
-                    break;
-                case 2:
-                    //ground.height = 20;
-                    anims = animateCam(camera.position, bPos, camera.rotation, gRot);
-                    //dome.dispose();
-
-                    clicks++;
-                    break;
-                case 3:
-                    anims = animateCam(camera.position, gPos, camera.rotation, gRot);
-
-                    clicks++;
-                    break;
-
-            }
-        }
-    });
 
 
 
-
-
-    //3d text
-    function threeDText(str, position, rotation = new BABYLON.Vector3(0,0,0), fontSize = 0.3, cWidth = 3, cHeight = 5, scale = 1, maxWidth = 4) {
-        Writer = BABYLON.MeshWriter(scene, { scale: scale });
-        str = `${str.repeat(4)}`
-
-
-        var text = new Writer(
-            str,
-            {
-                "anchor": gPos,
-                "letter-height": fontSize,
-                "letter-thickness": fontSize / 2,
-                "color": "#000080",
-
-            }
-        );
-
-        //Text Writer create SPS with Particle for each letter
-        var SPS = text.getSPS();
-
-        /*Update animation
-        SPS.updateParticle =  (particle)=> {
-            particle.rotation.z -= .1;
-        };
-        */
-        //calculate approximate characters per line, then locate line breaks based on spaces
-
-        var roughLen = 1.8 * cWidth / (fontSize);
-        var numLines = 0.7 * cHeight / fontSize;
-        var cutOffs = [];
-        var strPos = 0;
-        for (var j = 0; j < numLines; j++) {
-            thisLine = str.substr(strPos, roughLen);
-            thisLine = thisLine.substring(0, thisLine.lastIndexOf(" "))
-            strPos += thisLine.length;
-            cutOffs.push(strPos);
-        }
-
-
-        var yDelta = 0;
-        var xDelta = 0;
-        var iDelta = 1;
-        var lnPos = 0; //current line 
-        for (var i = 0; i < SPS.particles.length; i++) {
-
-
-            if (i + iDelta == cutOffs[lnPos]) {
-                yDelta += fontSize * scale;
-                xDelta -= SPS.particles[i - 1].position.x;
-                lnPos++;
-                if (lnPos < 2) {
-                    iDelta--;
-                }
-            }
-            SPS.particles[i].position.z -= yDelta;
-            SPS.particles[i].position.x += xDelta;
-            SPS.particles[i].rotation = rotation; 
-
-            //alert(str.charAt(i));
-        }
-        scene.registerBeforeRender(() => {
-            SPS.setParticles();
-            SPS.mesh.rotation.x = Math.PI * -.5;
-            SPS.mesh.position = position;
-        });
-        return text;
-    }
     //sunset text (second click)
-    var sunset = threeDText(madlibs[1], new BABYLON.Vector3(-10, 5.5, 12));
+    var sunset = threeDText(madlibs[1], new BABYLON.Vector3(-10, 5.5, 12), scene);
 
     //police text (third click)
-    var pp = threeDText(madlibs[3], new BABYLON.Vector3(-26, 6, 4));
+    var pp = threeDText(madlibs[3], new BABYLON.Vector3(-26, 6, 4), scene);
 
     var pp_sps = pp.getSPS();
     pp_sps.mesh.rotation.y += Math.PI;
@@ -315,27 +216,37 @@ var createScene = function () {
 
         });
 
+//grid(); 
+    //coatrack
+    //grid(); 
+    let coatrack = placeObject('./models/',  'stands_&_hooks_collection__vray.obj', new BABYLON.Vector3(26, 0, -6), scene, 0.005);
+    //grid(); 
+   // canvas.addEventListener("click", function () {
+        //animate to focus position 
+        //let anims = animateCam(camera.position, new BABYLON.Vector3(12, 3, 9), camera.rotation, new BABYLON.Vector3(0, Math.PI, 0));
+    
+    //BEGIN RED COKE ROOM ({red})
+    var pointlight = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(16, 5, 26), scene);
+    pointlight.diffuse = new BABYLON.Color3(1, 0, 0);
+    pointlight.specular = new BABYLON.Color3(0, 1, 0);
+    pointlight.intensity = 1.5; 
+    console.log(pointlight);
+    camera.position = new BABYLON.Vector3(11, 6.5, -25)
+    camera.setTarget(new BABYLON.Vector3(12, 2, -10));
+    let table = placeObject('./models/Side_Table_04_OBJ/',  'Side_Table_04.obj', new BABYLON.Vector3(15, 0, -16), scene, scale= 0.065);
+    let coke = placeObject('./models/',  'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(15, 3.5, -16), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+    //END RED COKE ROOM
+
+
+    
+    // });
     //bed
-    BABYLON.SceneLoader.ImportMesh(
-        null,
-        "https://raw.githubusercontent.com/howshekilledit/critical_cookbook/main/",
-        "bed.obj",
-        scene,
-        function (meshes) {
+    let bedpos = new BABYLON.Vector3(-18, 0, 9);
+    let bedrot = new BABYLON.Vector3(0, -0.6, 0);
+    let bed = placeObject("./models/", "bed.obj", bedpos, scene, .004, bedrot);
 
-            for (const mesh of meshes) { //for each mesh ib bed object
-                var blueMat = new BABYLON.StandardMaterial('blue', scene);
-                var bedmat = buildMat(madlibs[2], 30, 2000, 1000, "garage", scene);
-                blueMat.diffuseColor = new BABYLON.Color3(0, 1, 1);
-                mesh.material = blueMat;
-                mesh.position = new BABYLON.Vector3(-18, 0, 9);
-                mesh.rotation.y -= 0.6 + Math.PI / 2;
-                mesh.scaling = new BABYLON.Vector3(0.004, 0.004, 0.004);
-            }
-
-        });
     //chair
-    BABYLON.SceneLoader.ImportMesh(
+    let chair = BABYLON.SceneLoader.ImportMesh(
         "",
         "https://raw.githubusercontent.com/howshekilledit/critical_cookbook/main/", "chair.obj",
         scene,
@@ -352,11 +263,12 @@ var createScene = function () {
 
         });
 
+   
 
     camera.attachControl(canvas, true);
 
 
-   
+
 
     //Create dynamic texture
     var textureResolution = 512;
@@ -446,50 +358,52 @@ var createScene = function () {
     //create floor
     var floorprint = roofprint(corners, 0, 0);
     var floor = roofFloor(floorprint);
+    function grid() {
+        let floortext = ""
+        //add grid of spheres for reference
+        for (let x = -30; x < 30; x += 2) {
+            for (let z = -20; z < 20; z += 2) {
+                let pos = new BABYLON.Vector3(x, 5, z);
+                let rot = new BABYLON.Vector3(2, 2, Math.PI / 2);
+                floortext += ` ${x}-${z} `
 
-    let floortext = ""
-    for(let x = -30; x < 30; x+=2){
-        for(let z = -20; z < 20; z+=2){
-        let pos = new BABYLON.Vector3(x, 5, z);
-        let rot = new BABYLON.Vector3(2, 2, Math.PI/2);
-        floortext += ` ${x}-${z} `
-
-       var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 1, scene);
-            //threeDText(`${x}, ${z}`, pos, rot);
-            var mat = new BABYLON.StandardMaterial("myMaterial", scene);
-            if((x == 0) | z == 0){
-           mat.diffuseColor = new BABYLON.Color3(0, 0, 0);
-            } else {
-                if((x%5 == 0) | (z%5 == 0)){
-                mat.diffuseColor = new BABYLON.Color3(1, 1, 0);
+                var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 1, scene);
+                //threeDText(`${x}, ${z}`, pos, rot);
+                var mat = new BABYLON.StandardMaterial("myMaterial", scene);
+                if ((x == 0) | z == 0) {
+                    mat.diffuseColor = new BABYLON.Color3(0, 0, 0);
                 } else {
-                    mat.diffuseColor = new BABYLON.Color3(1, 0, 1);
+                    if ((x % 5 == 0) | (z % 5 == 0)) {
+                        mat.diffuseColor = new BABYLON.Color3(1, 1, 0);
+                    } else {
+                        mat.diffuseColor = new BABYLON.Color3(1, 0, 1);
+                    }
                 }
+
+                sphere.position = pos;
+                sphere.material = mat;
             }
-     
-         sphere.position = pos; 
-            sphere.material = mat; 
+
+
+            //floortext += `\n`
+
         }
-
-     
-        //floortext += `\n`
-
     }
 
 
-      var floorTexture = new BABYLON.DynamicTexture("floor texture", { width: 2024, height: 1012 }, scene);
+    var floorTexture = new BABYLON.DynamicTexture("floor texture", { width: 2024, height: 1012 }, scene);
 
-    
-     
 
-        //add text to wallpaper
- 
+
+
+    //add text to wallpaper
+
     var flooring = new BABYLON.StandardMaterial("floor", scene);
-    //flooring.diffuseTexture = new BABYLON.Texture("https://playground.babylonjs.com/textures/albedo.png", scene)
-    
+    flooring.diffuseTexture = new BABYLON.Texture("./models/floor.jpg", scene)
+
     floor.material = flooring;
-    flooring.diffuseTexture = floorTexture; 
-    floorTexture= textTure(floortext, floorTexture, 20, 2024, 1012);
+    //flooring.diffuseTexture = floorTexture;
+    //floorTexture = textTure(floortext, floorTexture, 20, 2024, 1012);
 
     //create floor
     var ceilingPrint = roofprint(corners, 1, 9);
@@ -538,16 +452,17 @@ var createScene = function () {
     var ply = 0.5;
     var height = 9;
 
-    var house = buildFromPlan(walls, ply, height, { interiorUV: new BABYLON.Vector4(0.167, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0, 0, 0.16, 1) }, scene, "nine");
+    var house = buildFromPlan(walls, ply, height, { interiorUV: new BABYLON.Vector4(0.167, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0, 0, 0.16, 1) }, scene, madlibs[4]);
 
     //mat = new BABYLON.StandardMaterial("", scene);
     //mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/CGTCTfv.jpg", scene);
 
 
-    var newmat = buildMat("house ", 30, 2000, 1000, "house", scene, "blue");
+    var newmat = buildMat(madlibs[4], 30, 3000, 1000, "house", scene, "red");
     //house.material = newmat;
+   
     newmat.diffuseColor = new BABYLON.Color3(240 / 255, 234 / 255, 214 / 255); //eggshell paint color
-
+    house.material = newmat; 
     var innerData1 = [-12, 16, -12, -7.5];
 
     var corners1 = [];
@@ -582,7 +497,7 @@ var createScene = function () {
     walls2[1].doorSpaces = [bDoorSpace];
 
     var bathroomWall = buildFromPlan(walls2, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "two");
-    bathroomWall.material = buildMat(madlibs[2], 30, 2000, 1000, "bathroom ", scene, "navy");
+    bathroomWall.material = buildMat(madlibs[4], 30, 1900, 1000, "bathroom ", scene, "red", false);
 
     var innerData3 = [15, 16, 15, 0, 24, 0, 26, 3, 26, 16];
 

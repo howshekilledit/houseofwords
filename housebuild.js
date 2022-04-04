@@ -255,7 +255,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
     for (w = 0; w < nbWalls - 1; w++) {
         maxL = Math.max(innerBaseCorners[w + 1].subtract(innerBaseCorners[w]).length(), maxL);
     }
-    console.log(innerBaseCorners);
+    
     var maxH = height; // for when gables introduced
 
 
@@ -719,7 +719,6 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
     vertexData.uvs = uvs;
     vertexData.colors = colors;
 
-    console.log(customMesh);
     //Apply vertexData to custom mesh
     vertexData.applyToMesh(customMesh);
     var newmat = buildMat(`${label} `, 30, 2000, 1000, "house", scene, "blue");
@@ -732,7 +731,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
 //***********************************************************************************
 
 //cover wallpaper with text
-function textTure(text, texture, fontSize, cWidth, cHeight, color) {
+function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true) {
     var textPos = 0; //current position in text
     //roughly calculate number of lines needed to cover wall
     var nLines = 0.7 * cHeight / fontSize;
@@ -743,6 +742,7 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color) {
     var font = `${fontSize}px Monospace`;
     var wallColor = new BABYLON.Color3(1, 1, 1);
     var numred = 0;
+    let clearColor = new BABYLON.Color4(0, 0, 0, 0);
     for (var i = 0; i < nLines; i++) {
         var thisLine = coverText.substr(textPos, lnLen);
         thisLine = thisLine.substr(0, thisLine.lastIndexOf(" "));
@@ -753,28 +753,135 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color) {
             texture.drawText(thisLine, 410, 50 + i * fontSize * 1.5, font, color);
             var linePos = thisLine.indexOf(text); //position of full madlib in this line
             if (linePos > 1 & numred < 3) {
-                texture.drawText(`${' '.repeat(linePos)}${text}`, 410, 50 + i * fontSize * 1.5, font, 'red')
+                texture.drawText(`${' '.repeat(linePos)}${text}`, 410, 50 + i * fontSize * 1.5, font, 'red');
                 numred++;
             }
         }
     }
+    console.log(texture);
+    if(flip){
+        texture.vAng = Math.PI; 
+    }
+    //texture.invertX = true; 
+    return texture; 
 
 
 }
 
-function buildMat(text, fontSize, cWidth, cHeight, name, scene, color = "black") {
+//load and place object in scene
+function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5)){
+    let o_meshes = [];
+    let object = BABYLON.SceneLoader.ImportMesh(
+        null,
+         folder,
+        file,
+        scene,
+        function (meshes) { 
+            //var mat = new BABYLON.StandardMaterial('colormat', scene);
+           // mat.diffuseColor = new BABYLON.Color3(clr.r, clr.g, clr.b);
+           
+           for (const mesh of meshes) { 
+            mesh.position = position;
+            mesh.rotation = rotation;
+            //meshes[0].rotation.x += MATH.PI/2; 
+            mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
+            let mat = new BABYLON.StandardMaterial("coke material", scene);
+            mat.diffuseColor = texture;
+            mesh.material = mat; 
+            
+            
+           }
+    
+                     
+    });
+    return object; 
+
+}
+
+//3d text
+function threeDText(str, position, scene, rotation = new BABYLON.Vector3(0,0,0), fontSize = 0.3, cWidth = 3, cHeight = 5, scale = 1, maxWidth = 4) {
+    Writer = BABYLON.MeshWriter(scene, { scale: scale });
+    str = `${str.repeat(4)}`
+
+
+    var text = new Writer(
+        str,
+        {
+            "anchor":  position,
+            "letter-height": fontSize,
+            "letter-thickness": fontSize / 2,
+            "color": "#000080",
+
+        }
+    );
+
+    //Text Writer create SPS with Particle for each letter
+    var SPS = text.getSPS();
+
+    /*Update animation
+    SPS.updateParticle =  (particle)=> {
+        particle.rotation.z -= .1;
+    };
+    */
+    //calculate approximate characters per line, then locate line breaks based on spaces
+
+    var roughLen = 1.8 * cWidth / (fontSize);
+    var numLines = 0.7 * cHeight / fontSize;
+    var cutOffs = [];
+    var strPos = 0;
+    for (var j = 0; j < numLines; j++) {
+        thisLine = str.substr(strPos, roughLen);
+        thisLine = thisLine.substring(0, thisLine.lastIndexOf(" "))
+        strPos += thisLine.length;
+        cutOffs.push(strPos);
+    }
+
+
+    var yDelta = 0;
+    var xDelta = 0;
+    var iDelta = 1;
+    var lnPos = 0; //current line 
+    for (var i = 0; i < SPS.particles.length; i++) {
+
+
+        if (i + iDelta == cutOffs[lnPos]) {
+            yDelta += fontSize * scale;
+            xDelta -= SPS.particles[i - 1].position.x;
+            lnPos++;
+            if (lnPos < 2) {
+                iDelta--;
+            }
+        }
+        SPS.particles[i].position.z -= yDelta;
+        SPS.particles[i].position.x += xDelta;
+        SPS.particles[i].rotation = rotation; 
+
+        //alert(str.charAt(i));
+    }
+    scene.registerBeforeRender(() => {
+        SPS.setParticles();
+        SPS.mesh.rotation.x = Math.PI * -.5;
+        SPS.mesh.position = position;
+    });
+    return text;
+}
+//create material with text written on it
+function buildMat(text, fontSize, cWidth, cHeight, name, scene, color = "black", flip) {
     //Create dynamic texture
     //var textureResolution = 512;
 
     var mat = new BABYLON.StandardMaterial(name + "_mat", scene);
-    var textureResolution = 512;
-    var matTexture = new BABYLON.DynamicTexture(name + "_texture", { width: cWidth, height: cHeight }, scene);
+    var textureResolution = 1024;
+    let matTexture = new BABYLON.DynamicTexture(name + "_texture", { width: cWidth, height: cHeight}, scene);
     var textureContext = matTexture.getContext();
     //var textureContext = texture.getContext();
 
 
     mat.diffuseTexture = matTexture;
-    matTexture = textTure(text, matTexture, fontSize, cWidth, cHeight, color);
+    
+    //mat.diffuseTexture.vScale = -1; 
+    matTexture = textTure(text, matTexture, fontSize, cWidth, cHeight, color, flip);
+    console.log(mat);
     //mat.diffuseColor = new BABYLON.Color3(1, 0, 1);
     return mat;
 
