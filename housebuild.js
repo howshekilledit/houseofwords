@@ -1,4 +1,6 @@
 //The roofprint is the footprint of the roof, it follows the floor plan of the house but is extended by the overlap
+let renderList = []; 
+
 var roofprint = function (corners, overlap, height) {
     var outerData = [];
     var angle = 0;
@@ -770,7 +772,7 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true) 
 
 //load and place object in scene
 function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5)){
-    let o_meshes = [];
+ 
     let object = BABYLON.SceneLoader.ImportMesh(
         null,
          folder,
@@ -788,13 +790,15 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
             let mat = new BABYLON.StandardMaterial("coke material", scene);
             mat.diffuseColor = texture;
             mesh.material = mat; 
-            
-            
-           }
+            renderList.push(mesh);
     
+           }
+         
+           
                      
     });
-    return object; 
+    console.log(object);
+    return object;
 
 }
 
