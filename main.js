@@ -72,7 +72,12 @@ madlibs.push(`My ${brain} hurts when I ${think} this much. `);
 madlibs.push(`${red} `)
 madlibs.push(`Today I'll dress more ${masculine} than usual. `);
 
+var clicks = 0;
+var camera;
 var canvas = document.getElementById("renderCanvas");
+var engine = null;
+var scene = null;
+var sceneToRender = null;
 
 var startRenderLoop = function (engine, canvas) {
     engine.runRenderLoop(function () {
@@ -82,9 +87,7 @@ var startRenderLoop = function (engine, canvas) {
     });
 }
 
-var engine = null;
-var scene = null;
-var sceneToRender = null;
+
 var createDefaultEngine = function () { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true, disableWebGL2Support: false }); };
 
 
@@ -92,13 +95,9 @@ if (typeof TYPE === "undefined") {
     fauxLoad()
 }
 
-var clicks = 0;
 
 
-var dome;
-var sceneToRender = null;
-var createDefaultEngine = function () { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true, disableWebGL2Support: false }); };
-var camera;
+
 BABYLON.PolygonMeshBuilder.prototype.wallBuilder = function (w0, w1) {
     var positions = [];
     var iuvs = [];
