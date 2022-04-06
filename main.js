@@ -1,3 +1,28 @@
+
+
+
+    var js = CodeMirror.fromTextArea(document.getElementById("codejs"), {
+      mode:  "javascript",
+      lineNumbers: true,
+      theme: "dracula"
+    });
+    
+    
+    
+    document.getElementById('run').addEventListener("click", function () {
+    document.getElementById( "chalfunction" ).remove();
+    var jsx = js.getValue();
+    var s = document.createElement('script');
+    s.setAttribute("id", "chalfunction");
+    s.textContent = jsx;//inne
+    document.body.appendChild(s);
+    $( ".pconsole" ).remove();
+    $(".console").append("<p class='pconsole indent'>" + challengeFunction() +" </p>");
+    
+    });
+
+    
+
 //follow the instructions in gray! 
 
 let face = ""; /*Between the quotation marks, 
@@ -73,7 +98,7 @@ madlibs.push(`${red} `)
 madlibs.push(`Today I'll dress more ${masculine} than usual. `);
 
 var clicks = 0;
-var camera;
+
 var canvas = document.getElementById("renderCanvas");
 var engine = null;
 var scene = null;

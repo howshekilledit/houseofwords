@@ -6,6 +6,10 @@
 
     <title>House of Words</title>
 
+    <script src="./codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="./codemirror/lib/codemirror.css">
+<script src="./codemirror/mode/javascript/javascript.js"></script>
+
     <!-- Babylon.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
     <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
@@ -37,6 +41,7 @@
 
         #start{
             color:white;
+            width:40%;
             position:fixed;
             padding: 1em;
 
@@ -52,16 +57,53 @@
 
 
         #renderCanvas {
-            width: 100%;
+            width: 50%;
             height: 100%;
             touch-action: none;
+        }
+
+        .container{
+            position:absolute;
+            left:50%;
+            width:50%;
         }
     </style>
 </head>
 
 <body>
-    <p id = "start" class = "glow">Complete the instructions in gray, then click here to see what you've made.</p>
+    <p id = "start" class = "glow">Once you have defined each word, click to begin. Continue clicking to move through the house, and spend some time observing each room.</p>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+<div class="container">
+<div class="row">
+<div class="side col-md-12">
+<div style="text-align:center" class="side col-md-4">
+
+  <button style="width:90%" id="run" class="btn btn-primary">Run</button>
+  <div class="console">
+<p class="pconsole">/**
+  </p>
+   <p class="pconsole indent">* Function out put will go here.</p>
+<p class="pconsole indent">* /</p>
+</div>
+  
+</div>
+<div class="side col-md-8">
+<textarea id="codejs">
+function challengeFunction () {
+alert("good");
+}
+
+</textarea>
+  </div>
+</div>
+</div>
+</div>
+<script id="script" type="text/javascript">
+
+</script>
+    
     <canvas id="renderCanvas"></canvas>
+    
     <script src="./main.js"></script>
 </body>
 
