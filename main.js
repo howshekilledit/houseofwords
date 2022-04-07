@@ -1,6 +1,6 @@
 //follow the instructions in the comments! 
 
-let face = "face"; /*Between the quotation marks, 
+var face = "face"; /*Between the quotation marks, 
        in something like 3-8 words, 
        describe what "face" means to you. 
        See if you can avoid using the word or its synonyms
@@ -18,14 +18,14 @@ let face = "face"; /*Between the quotation marks,
        Don't use any additional quotation 
        marks ("") in your description. */
 
-let red = "red"; //repeat the instructions with the word "red" (keep in the form of a noun)
+var red = "red"; //repeat the instructions with the word "red" (keep in the form of a noun)
 
-let brain = "brain"; //repeat the instructions for the word "brain"
+var brain = "brain"; //repeat the instructions for the word "brain"
 
-let masculine = "masculine"; //define 'masculine' in ADJECCTIVE form, so 
+var masculine = "masculine"; //define 'masculine' in ADJECCTIVE form, so 
 //you could sub it into a sentence that uses the word as an ADJECTIVE
 
-let think = "think"; //define 'think' in VERB form,
+var think = "think"; //define 'think' in VERB form,
 //so you could sub it into a sentence that uses the word as a VERB
 
 /*
@@ -38,7 +38,7 @@ let think = "think"; //define 'think' in VERB form,
    click the screen to the right to advance the program
 
    when clicking no longer does anything, 
-   you've completed this exercise! 
+   you've compvared this exercise! 
    
    DON'T SCROLL DOWN 
    until you've finished clicking through! 
@@ -99,7 +99,7 @@ madlibs.push(`My ${brain} hurts when I ${think} this much. `);
 madlibs.push(`${red}. `)
 madlibs.push(`Today I'll dress more ${masculine} than usual. `);
 
-let words = [face, red, brain, masculine, think];
+var words = [face, red, brain, masculine, think];
 
 var clicks = 0;
 var camera;
@@ -194,7 +194,7 @@ var createScene = function () {
     light.intensity = 0;
     //red sunset wall
     //camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 20, 10), scene); 
-    let opos = new BABYLON.Vector3(7, 5, 2); //iniitial position
+    var opos = new BABYLON.Vector3(7, 5, 2); //iniitial position
     camera = new BABYLON.FreeCamera("camera1", opos, scene);
     //var sunsetTarget = new BABYLON.Vector3(20, 2, 10);
     //var sunsetPos =  new BABYLON.Vector3(0, 6, 10);
@@ -204,7 +204,6 @@ var createScene = function () {
     var wPos = new BABYLON.Vector3(-8, 5, 5); //window position
     var wRot = new BABYLON.Vector3(.2, 0, 0); //window rotation
 
-    console.log(camera);
 
     var bPos = new BABYLON.Vector3(-28, 5, 8.5); //bedroom position
     var bRot = new BABYLON.Vector3(0.2, Math.PI / 2, 0);  //bedroom rotation
@@ -214,7 +213,7 @@ var createScene = function () {
     var gRot = new BABYLON.Vector3(0, Math.PI, 0); //garage rotation
 
     var anims;
-    let start = document.getElementById('start')
+    var start = document.getElementById('start')
     start.addEventListener("click", function () {
         roomclick(clicks);
         clicks++;
@@ -256,10 +255,10 @@ var createScene = function () {
     //grid(); 
     // 
     //animate to focus position 
-    //let anims = animateCam(camera.position, new BABYLON.Vector3(12, 3, 9), camera.rotation, new BABYLON.Vector3(0, Math.PI, 0));
-    let pointlight;
-    let blue_pointlight;
-    let bulb_pointlight;
+    //var anims = animateCam(camera.position, new BABYLON.Vector3(12, 3, 9), camera.rotation, new BABYLON.Vector3(0, Math.PI, 0));
+    var pointlight;
+    var blue_pointlight;
+    var bulb_pointlight;
 
     function roomclick(clicks) {
         start = document.getElementById('start');
@@ -268,7 +267,7 @@ var createScene = function () {
             start.textContent = "Please define all words, per instructions at the top of main.js, and hit save, before you click again. "
 
         } else {
-            let rooms = [
+            var rooms = [
 
                 function () {
 
@@ -281,16 +280,15 @@ var createScene = function () {
                     pointlight.diffuse = new BABYLON.Color3(1, 0, 0);
                     pointlight.specular = new BABYLON.Color3(0, 1, 0);
                     pointlight.intensity = 1.5;
-                    console.log(pointlight);
-                    let campos = new BABYLON.Vector3(12, 6.5, -10)
+                    var campos = new BABYLON.Vector3(12, 6.5, -10)
                     //camera.setTarget(new BABYLON.Vector3(11, 2, -25));
-                    let camrot = new BABYLON.Vector3(0.2908470948675594, -3.0750244898139694, 0);
-                    let table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
-                    let coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+                    var camrot = new BABYLON.Vector3(0.2908470948675594, -3.0750244898139694, 0);
+                    var table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
+                    var coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
                     camera.position = campos;
                     camera.rotation = camrot;
 
-                    //let anims = animateCam(camera.position, campos, camera.rotation, camrot);
+                    //var anims = animateCam(camera.position, campos, camera.rotation, camrot);
 
                     //END RED COKE ROOM
                 },
@@ -304,13 +302,13 @@ var createScene = function () {
                     pointlight.intensity = 0.5;
 
                     //camera
-                    let campos = new BABYLON.Vector3(30, 6.5, -11);
+                    var campos = new BABYLON.Vector3(30, 6.5, -11);
                     //camera.setTarget(new BABYLON.Vector3(20, 4, -11));
-                    let camrot = new BABYLON.Vector3(0.24497866312686414, -1.5708963267945633, 0);
-                    let anims = animateCam(camera.position, campos, camera.rotation, camrot);
+                    var camrot = new BABYLON.Vector3(0.24497866312686414, -1.5708963267945633, 0);
+                    var anims = animateCam(camera.position, campos, camera.rotation, camrot);
                     //objects
-                    let blue_table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(14, 0, -10), scene, scale = 0.065);
-                    let blue_coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(14, 3.5, -10), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0, 0, 1));
+                    var blue_table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(14, 0, -10), scene, scale = 0.065);
+                    var blue_coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(14, 3.5, -10), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0, 0, 1));
 
                     //END BLUE COKE ROOM
                 },
@@ -324,10 +322,10 @@ var createScene = function () {
                     //pointlight.intensity = 0.5;
                     //camera
 
-                    let campos = new BABYLON.Vector3(26, 7, -15);
+                    var campos = new BABYLON.Vector3(26, 7, -15);
                     //camera.setTarget(new BABYLON.Vector3(29, 3, 0));
-                    let camrot = new BABYLON.Vector3(0.25576149251471497, 0.19739555984988066, 0);
-                    let anims = animateCam(camera.position, campos, camera.rotation, camrot);
+                    var camrot = new BABYLON.Vector3(0.25576149251471497, 0.19739555984988066, 0);
+                    var anims = animateCam(camera.position, campos, camera.rotation, camrot);
                     // camera
 
                     var glass = BABYLON.MeshBuilder.CreatePlane("glass", { width: 4, height: 7 }, scene);
@@ -364,15 +362,15 @@ var createScene = function () {
 
                     //masculinity room
 
-                    let campos = new BABYLON.Vector3(30, 8, 0);
+                    var campos = new BABYLON.Vector3(30, 8, 0);
                     //camera.setTarget(new BABYLON.Vector3(26, 2.5, -15.5));
-                    let camrot = new BABYLON.Vector3(0.330946081002134, -2.8890383778117337, 0);
-                    let anims = animateCam(camera.position, campos, camera.rotation, camrot);
+                    var camrot = new BABYLON.Vector3(0.330946081002134, -2.8890383778117337, 0);
+                    var anims = animateCam(camera.position, campos, camera.rotation, camrot);
                     blue_pointlight.intensity = 0;
                     pointlight.intensity = 0;
                     var mascmat = buildMat(madlibs[5], 40, 3000, 1000, "house", scene, "black");
                     house.material = mascmat;
-                    let rack = placeObject('https://howshekilledit.github.io/houseofwords/models/clothes_rack_with_hangers/',
+                    var rack = placeObject('https://howshekilledit.github.io/houseofwords/models/clothes_rack_with_hangers/',
                         'clothes rack with hangers obj.obj', new BABYLON.Vector3(23, 0, -12), scene, 0.0065,
                         new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0.2, 0.2, 0.2));
 
@@ -384,18 +382,17 @@ var createScene = function () {
                 }, function () {
                     //brain room
                     bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
-                    let bulb = placeObject('https://howshekilledit.github.io/houseofwords/models/',
+                    var bulb = placeObject('https://howshekilledit.github.io/houseofwords/models/',
                         'Bulbul_(OBJ).obj', new BABYLON.Vector3(11, 5, -1), scene, 0.01,
                         new BABYLON.Vector3(0, 0, Math.PI / 2), new BABYLON.Color4(0.8, 0.8, 0.8, 0.2));
                     bulb_pointlight = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(11, 5, -1), scene);
                     //bulb_pointlight.diffuse = new BABYLON.Color3(0, 0, 1);
                     //bulb_pointlight.specular = new BABYLON.Color3(0, 0, 1);
                     bulb_pointlight.intensity = 1;
-                    let campos = new BABYLON.Vector3(10, 6, 4);
+                    var campos = new BABYLON.Vector3(10, 6, 4);
                     //camera.setTarget(new BABYLON.Vector3(11, 3, -6));
-                    let camrot = new BABYLON.Vector3(0.29009034157436236, 3.0419240010986313, 0);
-                    let anims = animateCam(camera.position, campos, camera.rotation, camrot);
-                    console.log(camera.rotation);
+                    var camrot = new BABYLON.Vector3(0.29009034157436236, 3.0419240010986313, 0);
+                    var anims = animateCam(camera.position, campos, camera.rotation, camrot);
                 },
                 // function(){
                 //     light.intensity = 1; 
@@ -409,7 +406,7 @@ var createScene = function () {
                 //     house.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
                 // },
                 function () {
-                    let anims = animateCam(light.intensity, 0, pointlight.intensity, 0);
+                    var anims = animateCam(light.intensity, 0, pointlight.intensity, 0);
                     start.textContent = "You've reached the end! Time to reflect on the rooms you made."
                 }
 
@@ -425,12 +422,12 @@ var createScene = function () {
 
     // });
     //bed
-    let bedpos = new BABYLON.Vector3(-18, 0, 9);
-    let bedrot = new BABYLON.Vector3(0, -0.6, 0);
-    let bed = placeObject("https://howshekilledit.github.io/houseofwords/models/", "bed.obj", bedpos, scene, .004, bedrot);
+    var bedpos = new BABYLON.Vector3(-18, 0, 9);
+    var bedrot = new BABYLON.Vector3(0, -0.6, 0);
+    var bed = placeObject("https://howshekilledit.github.io/houseofwords/models/", "bed.obj", bedpos, scene, .004, bedrot);
 
     //chair
-    let chair = BABYLON.SceneLoader.ImportMesh(
+    var chair = BABYLON.SceneLoader.ImportMesh(
         "",
         "https://raw.githubusercontent.com/howshekilledit/critical_cookbook/main/", "chair.obj",
         scene,
@@ -543,14 +540,14 @@ var createScene = function () {
     var floorprint = roofprint(corners, 0, 0);
     var floor = roofFloor(floorprint);
     function grid() {
-        let floortext = ""
+        var floortext = ""
         camera.position = new BABYLON.Vector3(0, 80, 0);
         camera.setTarget(new BABYLON.Vector3(0, 0, 0));
         //add grid of spheres for reference
-        for (let x = -30; x < 30; x += 2) {
-            for (let z = -20; z < 20; z += 2) {
-                let pos = new BABYLON.Vector3(x, 5, z);
-                let rot = new BABYLON.Vector3(2, 2, Math.PI / 2);
+        for (var x = -30; x < 30; x += 2) {
+            for (var z = -20; z < 20; z += 2) {
+                var pos = new BABYLON.Vector3(x, 5, z);
+                var rot = new BABYLON.Vector3(2, 2, Math.PI / 2);
                 floortext += ` ${x}-${z} `
 
                 var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 1, scene);
@@ -754,7 +751,7 @@ var createScene = function () {
     walls6[0].doorSpaces = [cDoorSpace]
 
     smallWall3 = buildFromPlan(walls6, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "six");
-    smallWall3.material = buildMat("smallWall3 ", 30, 2000, 1000, "smallWall3", scene, "violet");
+    smallWall3.material = buildMat("smallWall3 ", 30, 2000, 1000, "smallWall3", scene, "viovar");
     ;
 
     var innerData7 = [0, -10.5, 0, 3];
