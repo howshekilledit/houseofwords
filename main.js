@@ -1,6 +1,6 @@
 //follow the instructions in the comments! 
 
-let face = ""; /*Between the quotation marks, 
+let face = "face"; /*Between the quotation marks, 
        in something like 3-8 words, 
        describe what "face" means to you. 
        See if you can avoid using the word or its synonyms
@@ -18,14 +18,14 @@ let face = ""; /*Between the quotation marks,
        Don't use any additional quotation 
        marks ("") in your description. */
 
-let red = ""; //repeat the instructions with the word "red" (keep in the form of a noun)
+let red = "red"; //repeat the instructions with the word "red" (keep in the form of a noun)
 
-let brain = ""; //repeat the instructions for the word "brain"
+let brain = "brain"; //repeat the instructions for the word "brain"
 
-let masculine = ""; //define 'masculine' in ADJECCTIVE form, so 
+let masculine = "masculine"; //define 'masculine' in ADJECCTIVE form, so 
 //you could sub it into a sentence that uses the word as an ADJECTIVE
 
-let think = ""; //define 'think' in VERB form,
+let think = "think"; //define 'think' in VERB form,
 //so you could sub it into a sentence that uses the word as a VERB
 
 /*
