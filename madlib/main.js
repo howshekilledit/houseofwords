@@ -55,7 +55,7 @@ Or you can move on to part 2 in the main document.
 
 //check to make sure that all of the variables have been populated
 let words = adjectives.concat([body_part, person_name, sound, noun, number, plural_noun]);
-if (words.indexOf("") == -1) {
+if (words.indexOf("") === -1) {
     //fill in madlib with variables
     var madlib =document.getElementById('text');
     madlib.classList.add('glow');

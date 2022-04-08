@@ -1,6 +1,6 @@
 //follow the instructions in the comments! 
 
-var face = "face"; /*Between the quotation marks, 
+var face = ""; /*Between the quotation marks, 
        in something like 3-8 words, 
        describe what "face" means to you. 
        See if you can avoid using the word or its synonyms
@@ -18,27 +18,26 @@ var face = "face"; /*Between the quotation marks,
        Don't use any additional quotation 
        marks ("") in your description. */
 
-var red = "red"; //repeat the instructions with the word "red" (keep in the form of a noun)
+var red = ""; //repeat the instructions with the word "red" (keep in the form of a noun)
 
-var brain = "brain"; //repeat the instructions for the word "brain"
+var brain = ""; //repeat the instructions for the word "brain"
 
-var masculine = "masculine"; //define 'masculine' in ADJECCTIVE form, so 
+var masculine = ""; //define 'masculine' in ADJECCTIVE form, so 
 //you could sub it into a sentence that uses the word as an ADJECTIVE
 
-var think = "think"; //define 'think' in VERB form,
+var think = ""; //define 'think' in VERB form,
 //so you could sub it into a sentence that uses the word as a VERB
 
 /*
    when you have finished lines 1 - 27, click the menu icon at the
    very top left corner of the screen
-
    click File>Save
    refresh to register your changes. 
 
    click the screen to the right to advance the program
 
    when clicking no longer does anything, 
-   you've compvared this exercise! 
+   you've completed this exercise! 
    
    DON'T SCROLL DOWN 
    until you've finished clicking through! 
