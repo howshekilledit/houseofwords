@@ -368,8 +368,9 @@ var createScene = function () {
                     var anims = animateCam(camera.position, campos, camera.rotation, camrot);
                     blue_pointlight.intensity = 0;
                     pointlight.intensity = 0;
-                    //var mascmat = buildMat(madlibs[5], 40, 3000, 1000, "house", scene, "black");
-                    //house.material = mascmat;
+                    var mascmat = buildMat(madlibs[5], 40, 3000, 1000, "house", scene, "black");
+                    house.material = mascmat;
+                    bathroomWall.material = mascmat; 
                     var rack = placeObject('https://howshekilledit.github.io/houseofwords/models/clothes_rack_with_hangers/',
                         'clothes rack with hangers obj.obj', new BABYLON.Vector3(23, 0, -12), scene, 0.0065,
                         new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0.2, 0.2, 0.2));
@@ -381,7 +382,7 @@ var createScene = function () {
                     //grid(); 
                 }, function () {
                     //brain room
-                    //bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
+                    bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
                     var bulb = placeObject('https://howshekilledit.github.io/houseofwords/models/',
                         'Bulbul_(OBJ).obj', new BABYLON.Vector3(11, 5, -1), scene, 0.01,
                         new BABYLON.Vector3(0, 0, Math.PI / 2), new BABYLON.Color4(0.8, 0.8, 0.8, 0.2));
@@ -645,7 +646,6 @@ var createScene = function () {
     var newmat = buildMat(madlibs[4], 32, 3000, 1000, "house", scene, "red");
     //house.material = newmat;
 
-    newmat.diffuseColor = new BABYLON.Color3(240 / 255, 234 / 255, 214 / 255); //eggshell paint color
     house.material = newmat;
     var innerData1 = [-12, 16, -12, -7.5];
 
@@ -680,7 +680,7 @@ var createScene = function () {
     walls2[0].doorSpaces = [bDoorSpace]
     walls2[1].doorSpaces = [bDoorSpace];
     console.log(walls2);
-    var bathroomWall = buildFromPlan(walls2, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "bathroom Wall", 'yellow');
+    var bathroomWall = buildFromPlan(walls2, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene,  madlibs[4]);
     //bathroomWall.material = buildMat(madlibs[0], 35, 3800, 1800, "bathroom ", scene, "blue", false, '#ffff00');
 
     var innerData3 = [15, 16, 15, 0, 24, 0, 26, 3, 26, 16];
@@ -702,7 +702,7 @@ var createScene = function () {
     walls3[2].doorSpaces = [mDoorSpace2];
     walls3[3].doorSpaces = [mDoorSpace3];
 
-    var masterWall = buildFromPlan(walls3, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "masterWall", 'purple');
+    var masterWall = buildFromPlan(walls3, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, madlibs[0]);
     //masterWall.material = buildMat(madlibs[0], 30, 2000, 1000, "master ", scene, "black", true, 'purple');
 
     var innerData4 = [26, 3, 31, 3];
@@ -732,7 +732,7 @@ var createScene = function () {
         walls5.push(new wall(corners5[c]));
     }
 
-    smallWall2 = buildFromPlan(walls5, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "smallWall2", 'green');
+    smallWall2 = buildFromPlan(walls5, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, madlibs[0]);
     //smallWall2.material = buildMat(madlibs[0], 70, 1700, 1500, "smallWall2", scene, "black", false);
 
     var innerData6 = [21, -7.5, 21, 0];
@@ -750,7 +750,8 @@ var createScene = function () {
     cDoorSpace = new doorSpace(door2, 2.25);
     walls6[0].doorSpaces = [cDoorSpace]
 
-    smallWall3 = buildFromPlan(walls6, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "smallWall3", 'red');
+    smallWall3 = buildFromPlan(walls6, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), 
+        exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, madlibs[0]);
     //smallWall3.material = buildMat("smallWall3 ", 30, 2000, 1000, "smallWall3", scene, "viovar");
     ;
 
