@@ -349,7 +349,7 @@ var createScene = function () {
                     var mirrorMaterial = new BABYLON.StandardMaterial("mirror", scene);
                     mirrorMaterial.reflectionTexture = new BABYLON.MirrorTexture("mirror", 1024, scene, true);
                     mirrorMaterial.reflectionTexture.mirrorPlane = reflector;
-                    mirrorMaterial.reflectionTexture.renderList = [house, smallWall1, smallWall2, floor];
+                    mirrorMaterial.reflectionTexture.renderList = [house, smallWall1, smallWall2, floor, masterWall, bathroomWall];
                     mirrorMaterial.reflectionTexture.renderList.concat(renderList);
                     mirrorMaterial.reflectionTexture.level = 1;
 
@@ -636,7 +636,7 @@ var createScene = function () {
     var ply = 0.5;
     var height = 9;
 
-    var house = buildFromPlan(walls, ply, height, { interiorUV: new BABYLON.Vector4(0.167, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0, 0, 0.16, 1) }, scene, madlibs[4]);
+    var house = buildFromPlan(walls, ply, height, { interiorUV: new BABYLON.Vector4(0.167, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0, 0, 0.16, 1) }, scene, madlibs[4], 'green');
 
     //mat = new BABYLON.StandardMaterial("", scene);
     //mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/CGTCTfv.jpg", scene);
@@ -679,9 +679,9 @@ var createScene = function () {
     bDoorSpace = new doorSpace(door2, 1.5);
     walls2[0].doorSpaces = [bDoorSpace]
     walls2[1].doorSpaces = [bDoorSpace];
-
+    console.log(walls2);
     var bathroomWall = buildFromPlan(walls2, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "two");
-    bathroomWall.material = buildMat(madlibs[4], 35, 2000, 800, "bathroom ", scene, "blue", false);
+    bathroomWall.material = buildMat(madlibs[0], 35, 3800, 1800, "bathroom ", scene, "blue", false, '#ffff00');
 
     var innerData3 = [15, 16, 15, 0, 24, 0, 26, 3, 26, 16];
 
@@ -703,7 +703,7 @@ var createScene = function () {
     walls3[3].doorSpaces = [mDoorSpace3];
 
     var masterWall = buildFromPlan(walls3, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "three");
-    masterWall.material = buildMat(madlibs[0], 30, 2000, 1000, "master ", scene, "black");
+    masterWall.material = buildMat(madlibs[0], 30, 2000, 1000, "master ", scene, "black", true, 'purple');
 
     var innerData4 = [26, 3, 31, 3];
 
