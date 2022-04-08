@@ -737,9 +737,19 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
 
     //Apply vertexData to custom mesh
     vertexData.applyToMesh(customMesh);
-    var newmat = buildMat(`${label} `, 30, 2000, 1000, "house", scene, "blue", bg);
-    customMesh.material = newmat; 
+ 
+    //calculate wallpaper widh
+    var xs = walls.map(x => x.corner._x);
+    var zs = walls.map(z => z.corner._z);
+    console.log(xs, zs);
+    var wp_width = Math.abs(Math.max(...xs) - Math.min(...xs)) + Math.abs(Math.max(...zs) - Math.min(...zs));
+    wp_width = (wp_width + ply)* 2 * 200 ; 
+    console.log(wp_width);
 
+    //create and apply wallpaper 
+    var newmat = buildMat(`${label} `, 110, wp_width, 3000, "house", scene, "blue", false, bg);
+    customMesh.material = newmat; 
+    
     return customMesh;
 
 
@@ -774,7 +784,6 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
             }
         }
     }
-    console.log(texture);
     if(flip){
         texture.vAng = Math.PI; 
     }
@@ -811,7 +820,7 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
            
                      
     });
-    console.log(object);
+
     return object;
 
 }
@@ -892,15 +901,11 @@ function buildMat(text, fontSize, cWidth, cHeight, name, scene, color = "black",
     var textureResolution = 1024;
     let matTexture = new BABYLON.DynamicTexture(name + "_texture", { width: cWidth, height: cHeight}, scene);
     var textureContext = matTexture.getContext();
-    //var textureContext = texture.getContext();
 
 
     mat.diffuseTexture = matTexture;
-    
-    //mat.diffuseTexture.vScale = -1; 
-    matTexture = textTure(text, matTexture, fontSize, cWidth, cHeight, color, flip, bg);
-    console.log(mat);
-    //mat.diffuseColor = new BABYLON.Color3(1, 0, 1);
+
+    matTexture = textTure(text, matTexture, fontSize, cWidth, cHeight, color, flip, bg);    
     return mat;
 
 }
