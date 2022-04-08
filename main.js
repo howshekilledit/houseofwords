@@ -1,7 +1,6 @@
-//follow the instructions in the comments! 
+//READ ON FOR INSTRUCTIONS!
 
 var face = ""; /*Between the quotation marks, 
-       in something like 3-8 words, 
        describe what "face" means to you. 
        See if you can avoid using the word or its synonyms
        in your description -- if you can't, that's okay.
@@ -155,6 +154,10 @@ BABYLON.PolygonMeshBuilder.prototype.wallBuilder = function (w0, w1) {
 var createScene = function () {
     var scene = new BABYLON.Scene(engine);
 
+    //objects in initial room
+    var table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
+    var coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+
     //build material with wallpaper texture
 
 
@@ -259,6 +262,9 @@ var createScene = function () {
     var blue_pointlight;
     var bulb_pointlight;
 
+     var table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
+                    var coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+
     function roomclick(clicks) {
         start = document.getElementById('start');
 
@@ -282,8 +288,7 @@ var createScene = function () {
                     var campos = new BABYLON.Vector3(12, 6.5, -10)
                     //camera.setTarget(new BABYLON.Vector3(11, 2, -25));
                     var camrot = new BABYLON.Vector3(0.2908470948675594, -3.0750244898139694, 0);
-                    var table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
-                    var coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+                   
                     camera.position = campos;
                     camera.rotation = camrot;
 
