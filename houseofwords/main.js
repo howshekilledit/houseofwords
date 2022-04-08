@@ -1,7 +1,6 @@
 //READ ON FOR INSTRUCTIONS!
 
 var face = ""; /*Between the quotation marks, 
-       in something like 3-8 words, 
        describe what "face" means to you. 
        See if you can avoid using the word or its synonyms
        in your description -- if you can't, that's okay.
