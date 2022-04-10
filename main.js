@@ -411,14 +411,8 @@ var createScene = function () {
 
                     //bird's eye
 
-<<<<<<< HEAD
                     //grid();
                 }, function () {
-=======
-                    //grid(); 
-                },
-                function () {
->>>>>>> b5e94ef (all purpose animator working)
                     //brain room
                     bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
                     var bulb = placeObject('../models/Bulb/',
@@ -438,20 +432,6 @@ var createScene = function () {
                     var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
                     { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }]);
                 },
-<<<<<<< HEAD
-                // function(){
-                //     light.intensity = 1;
-                //     camera.position = new BABYLON.Vector3(10, 6, 4);
-                //     camera.setTarget(new BABYLON.Vector3(7, 3, -8));
-                //     house.material = buildMat(" ", 30, 2000, 2000, "plain", scene)
-                //     threeDText(madlibs[4], new BABYLON.Vector3(6, 6, -3), scene,
-                //     new BABYLON.Vector3(-Math.PI, 0, 0));
-                // },
-                // function(){
-                //     house.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
-                // },
-=======
->>>>>>> b5e94ef (all purpose animator working)
                 function () {
                     light.intensity = 1;
                     var campos = new BABYLON.Vector3(10, 6, 4);
