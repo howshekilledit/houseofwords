@@ -1,4 +1,6 @@
 //The roofprint is the footprint of the roof, it follows the floor plan of the house but is extended by the overlap
+let renderList = []; 
+
 
 var roofprint = function (corners, overlap, height) {
     var outerData = [];
@@ -717,7 +719,6 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
     //calculate wallpaper widh
     var xs = walls.map(x => x.corner._x);
     var zs = walls.map(z => z.corner._z);
-    console.log(xs, zs);
     var wp_width = Math.abs(Math.max(...xs) - Math.min(...xs)) + Math.abs(Math.max(...zs) - Math.min(...zs));
     wp_width = (wp_width + ply)* 2 * 200 ;
     console.log(wp_width);
