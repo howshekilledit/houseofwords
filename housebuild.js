@@ -1,19 +1,6 @@
 //The roofprint is the footprint of the roof, it follows the floor plan of the house but is extended by the overlap
 let renderList = []; 
-let fan = {folder: 'https://models.babylonjs.com/vintageDeskFan/', 
-file: "vintageFan_animated.gltf", scale:0.17, 
-position: new BABYLON.Vector3(3, 0, -1),
-rotation: new BABYLON.Vector3(0, -Math.PI/4, 0)};
 
-let chair = {folder: "https://howshekilledit.github.io/houseofwords/models/", 
-file: "chair.obj", scale:0.013, 
-position: new BABYLON.Vector3(3, 0, -1),
-rotation: new BABYLON.Vector3(0, -Math.PI/4, 0)};
-
-let fish = {folder: "https://models.babylonjs.com/", 
-file: "fish.glb", scale:0.35, 
-position: new BABYLON.Vector3(3, 0.5, -2),
-rotation: new BABYLON.Vector3(0,0, 0)};
 
 var roofprint = function (corners, overlap, height) {
     var outerData = [];
@@ -741,10 +728,8 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
     //calculate wallpaper widh
     var xs = walls.map(x => x.corner._x);
     var zs = walls.map(z => z.corner._z);
-    console.log(xs, zs);
     var wp_width = Math.abs(Math.max(...xs) - Math.min(...xs)) + Math.abs(Math.max(...zs) - Math.min(...zs));
     wp_width = (wp_width + ply)* 2 * 200 ; 
-    console.log(wp_width);
 
     //create and apply wallpaper 
     var newmat = buildMat(`${label} `, 110, wp_width, 3000, "house", scene, "blue", false, bg);
