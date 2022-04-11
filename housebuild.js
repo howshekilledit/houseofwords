@@ -779,7 +779,7 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
 }
 
 //load and place object in scene
-function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5)){
+function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5), transparency = 1){
  
     let object = BABYLON.SceneLoader.ImportMesh(
         null,
@@ -797,6 +797,7 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
             mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
             let mat = new BABYLON.StandardMaterial("coke material", scene);
             mat.diffuseColor = texture;
+            mat.alpha= transparency;
             mesh.material = mat; 
             renderList.push(mesh);
     
