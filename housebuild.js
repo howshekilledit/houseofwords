@@ -769,8 +769,13 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
 }
 
 //load and place object in scene
+<<<<<<< HEAD
 function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5)){
 
+=======
+function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5), transparency = 1){
+ 
+>>>>>>> b5e94ef (all purpose animator working)
     let object = BABYLON.SceneLoader.ImportMesh(
         null,
          folder,
@@ -779,6 +784,7 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
         function (meshes) {
            //var mat = new BABYLON.StandardMaterial('colormat', scene);
            // mat.diffuseColor = new BABYLON.Color3(clr.r, clr.g, clr.b);
+<<<<<<< HEAD
 
            for (const mesh of meshes) {
                mesh.position = position;
@@ -790,6 +796,20 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
                mesh.material = mat;
                renderList.push(mesh);
 
+=======
+           
+           for (const mesh of meshes) { 
+            mesh.position = position;
+            mesh.rotation = rotation;
+            //meshes[0].rotation.x += MATH.PI/2; 
+            mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
+            let mat = new BABYLON.StandardMaterial("coke material", scene);
+            mat.diffuseColor = texture;
+            mat.alpha= transparency;
+            mesh.material = mat; 
+            renderList.push(mesh);
+    
+>>>>>>> b5e94ef (all purpose animator working)
            }
         }
     );
