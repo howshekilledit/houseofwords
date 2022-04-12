@@ -1,5 +1,5 @@
 //The roofprint is the footprint of the roof, it follows the floor plan of the house but is extended by the overlap
-let renderList = []; 
+let renderList = [];
 
 
 var roofprint = function (corners, overlap, height) {
@@ -315,7 +315,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
         polygonTriangulation = new BABYLON.PolygonMeshBuilder("", polygonCorners, scene);
 
         //windows
-        //Construct holes and add to polygon from window data			
+        //Construct holes and add to polygon from window data
         var windows = walls[w].windowSpaces.length;
         var holes = [];
         for (var ws = 0; ws < windows; ws++) {
@@ -360,7 +360,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
         doorData = wallData.positions.slice(3, 3 * (4 * doors + 1));
 
         //For each inner door save corner as an array of four Vector3s, base left, top left, top right, base right
-        //Extend door data outwards by ply and save outer door corners 		
+        //Extend door data outwards by ply and save outer door corners
         var doorCornersIn = [];
         var doorCornersOut = [];
         for (var p = 0; p < doorData.length / 12; p++) {
@@ -379,7 +379,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
         outerDoorCorners.push(doorCornersOut);
 
         //For each inner window save corner as an array of four Vector3s, base left, top left, top right, base right
-        //Extend window data outwards by ply and save outer window corners 		
+        //Extend window data outwards by ply and save outer window corners
         var windowCornersIn = [];
         var windowCornersOut = [];
         for (var p = 0; p < windowData.length / 12; p++) {
@@ -450,7 +450,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
             positions.push(outerDoorCorners[w][doorNb][0].x, outerDoorCorners[w][doorNb][0].y, outerDoorCorners[w][doorNb][0].z); //br
 
             uvs.push(exteriorUV.x, exteriorUV.y + (exteriorUV.w - exteriorUV.y) * ply / maxH); //top Left
-            uvs.push(exteriorUV.x, exteriorUV.y); //base Left				
+            uvs.push(exteriorUV.x, exteriorUV.y); //base Left
             uvs.push(exteriorUV.x + (exteriorUV.z - exteriorUV.x) * walls[w].doorSpaces[doorNb].left / maxL, exteriorUV.y + (exteriorUV.w - exteriorUV.y) * ply / maxH); //top right
             uvs.push(exteriorUV.x + (exteriorUV.z - exteriorUV.x) * walls[w].doorSpaces[doorNb].left / maxL, exteriorUV.y); //base right
 
@@ -679,7 +679,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
         uvx = exteriorUV.x + (0.5 * wallDiff + wallLength) * (exteriorUV.z - exteriorUV.x) / maxL;
         uvs.push(uvx, exteriorUV.y + (exteriorUV.w - exteriorUV.y) * ply / maxH); //top right
 
-        uvs.push(exteriorUV.x, exteriorUV.y); //base Left		
+        uvs.push(exteriorUV.x, exteriorUV.y); //base Left
         uvs.push(exteriorUV.x + (exteriorUV.z - exteriorUV.x) * exteriorWallLength / (maxL + wallDiff), exteriorUV.y); //base right
 
         indices.push(nbIndices + 1, nbIndices, nbIndices + 3, nbIndices + 2, nbIndices + 3, nbIndices);
@@ -720,7 +720,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
     var xs = walls.map(x => x.corner._x);
     var zs = walls.map(z => z.corner._z);
     var wp_width = Math.abs(Math.max(...xs) - Math.min(...xs)) + Math.abs(Math.max(...zs) - Math.min(...zs));
-    wp_width = (wp_width + ply)* 2 * 200 ; 
+    wp_width = (wp_width + ply)* 2 * 200 ;
 
     //create and apply wallpaper
     var newmat = buildMat(`${label} `, 110, wp_width, 3000, "house", scene, "blue", false, bg);
@@ -769,7 +769,7 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
 
 //load and place object in scene
 function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5), transparency = 1){
- 
+
     let object = BABYLON.SceneLoader.ImportMesh(
         null,
          folder,
@@ -778,18 +778,18 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
         function (meshes) {
            //var mat = new BABYLON.StandardMaterial('colormat', scene);
            // mat.diffuseColor = new BABYLON.Color3(clr.r, clr.g, clr.b);
-           
-           for (const mesh of meshes) { 
+
+           for (const mesh of meshes) {
             mesh.position = position;
             mesh.rotation = rotation;
-            //meshes[0].rotation.x += MATH.PI/2; 
+            //meshes[0].rotation.x += MATH.PI/2;
             mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
             let mat = new BABYLON.StandardMaterial("coke material", scene);
             mat.diffuseColor = texture;
             mat.alpha= transparency;
-            mesh.material = mat; 
+            mesh.material = mat;
             renderList.push(mesh);
-    
+
            }
         }
     );
