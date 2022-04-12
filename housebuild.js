@@ -36,7 +36,7 @@ var roofFloor = function (roofprint) {
     return floor;
 }
 
-//Creates the mesh roof structure 
+//Creates the mesh roof structure
 var roof = function (roofprint, apexes, planes, rise, height, uvbase) {
     var positions = [];
     var uvs = [];
@@ -151,7 +151,6 @@ var roof = function (roofprint, apexes, planes, rise, height, uvbase) {
     BABYLON.VertexData.ComputeNormals(positions, indices, normals);
 
 
-
     vertexData.positions = positions;
     vertexData.indices = indices;
     vertexData.normals = normals;
@@ -163,7 +162,7 @@ var roof = function (roofprint, apexes, planes, rise, height, uvbase) {
 
 
 var buildFromPlan = function (walls, ply, height, options, scene, label = "house ", bg = "#f0ead6") {
-    var ci = 1; 
+    var ci = 1;
 
     //Arrays for vertex positions and indices
     var positions = [];
@@ -183,7 +182,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
 
     var interiorIndex;
 
-    //Arrays to hold wall corner data 
+    //Arrays to hold wall corner data
     var innerBaseCorners = [];
     var outerBaseCorners = [];
     var innerTopCorners = [];
@@ -256,7 +255,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
     for (w = 0; w < nbWalls - 1; w++) {
         maxL = Math.max(innerBaseCorners[w + 1].subtract(innerBaseCorners[w]).length(), maxL);
     }
-    
+
     var maxH = height; // for when gables introduced
 
 
@@ -308,14 +307,6 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
         polygonCorners.push(new BABYLON.Vector2(wallLength, 0));
         polygonCorners.push(new BABYLON.Vector2(wallLength, height));
         polygonCorners.push(new BABYLON.Vector2(0, height));
-
-
-
-
-
-
-
-
 
 
         //Construct triangulation of polygon using its corners
@@ -404,7 +395,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
         innerWindowCorners.push(windowCornersIn);
         outerWindowCorners.push(windowCornersOut);
 
-        //Construct OUTER wall facet positions from inner wall 
+        //Construct OUTER wall facet positions from inner wall
         //Add outer wall corner positions back to wallData positions
         wallData.positions = [];
 
@@ -707,7 +698,7 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
     BABYLON.VertexData._ComputeSides(BABYLON.Mesh.FRONTSIDE, positions, indices, normals, uvs);
 
 
-    //Create a custom mesh  
+    //Create a custom mesh
     var customMesh = new BABYLON.Mesh("custom", scene);
 
     //Create a vertexData object
@@ -722,19 +713,19 @@ var buildFromPlan = function (walls, ply, height, options, scene, label = "house
 
     //Apply vertexData to custom mesh
     vertexData.applyToMesh(customMesh);
- 
+
     //calculate wallpaper widh
     var xs = walls.map(x => x.corner._x);
     var zs = walls.map(z => z.corner._z);
     console.log(xs, zs);
     var wp_width = Math.abs(Math.max(...xs) - Math.min(...xs)) + Math.abs(Math.max(...zs) - Math.min(...zs));
-    wp_width = (wp_width + ply)* 2 * 200 ; 
+    wp_width = (wp_width + ply)* 2 * 200 ;
     console.log(wp_width);
 
-    //create and apply wallpaper 
+    //create and apply wallpaper
     var newmat = buildMat(`${label} `, 110, wp_width, 3000, "house", scene, "blue", false, bg);
-    customMesh.material = newmat; 
-    
+    customMesh.material = newmat;
+
     return customMesh;
 
 
@@ -770,41 +761,37 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
         }
     }
     if(flip){
-        texture.vAng = Math.PI; 
+        texture.vAng = Math.PI;
     }
-    //texture.invertX = true; 
-    return texture; 
-
-
+    //texture.invertX = true;
+    return texture;
 }
 
 //load and place object in scene
 function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5)){
- 
+
     let object = BABYLON.SceneLoader.ImportMesh(
         null,
          folder,
         file,
         scene,
-        function (meshes) { 
-            //var mat = new BABYLON.StandardMaterial('colormat', scene);
+        function (meshes) {
+           //var mat = new BABYLON.StandardMaterial('colormat', scene);
            // mat.diffuseColor = new BABYLON.Color3(clr.r, clr.g, clr.b);
-           
-           for (const mesh of meshes) { 
-            mesh.position = position;
-            mesh.rotation = rotation;
-            //meshes[0].rotation.x += MATH.PI/2; 
-            mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
-            let mat = new BABYLON.StandardMaterial("coke material", scene);
-            mat.diffuseColor = texture;
-            mesh.material = mat; 
-            renderList.push(mesh);
-    
+
+           for (const mesh of meshes) {
+               mesh.position = position;
+               mesh.rotation = rotation;
+               //meshes[0].rotation.x += MATH.PI/2;
+               mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
+               let mat = new BABYLON.StandardMaterial("coke material", scene);
+               mat.diffuseColor = texture;
+               mesh.material = mat;
+               renderList.push(mesh);
+
            }
-         
-           
-                     
-    });
+        }
+    );
 
     return object;
 
@@ -852,7 +839,7 @@ function threeDText(str, position, scene, rotation = new BABYLON.Vector3(0,0,0),
     var yDelta = 0;
     var xDelta = 0;
     var iDelta = 1;
-    var lnPos = 0; //current line 
+    var lnPos = 0; //current line
     for (var i = 0; i < SPS.particles.length; i++) {
 
 
@@ -866,7 +853,7 @@ function threeDText(str, position, scene, rotation = new BABYLON.Vector3(0,0,0),
         }
         SPS.particles[i].position.z -= yDelta;
         SPS.particles[i].position.x += xDelta;
-        SPS.particles[i].rotation = rotation; 
+        SPS.particles[i].rotation = rotation;
 
         //alert(str.charAt(i));
     }
@@ -890,9 +877,8 @@ function buildMat(text, fontSize, cWidth, cHeight, name, scene, color = "black",
 
     mat.diffuseTexture = matTexture;
 
-    matTexture = textTure(text, matTexture, fontSize, cWidth, cHeight, color, flip, bg);    
+    matTexture = textTure(text, matTexture, fontSize, cWidth, cHeight, color, flip, bg);
     return mat;
-
 }
 
 function fauxLoad() {

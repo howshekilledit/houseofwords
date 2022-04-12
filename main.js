@@ -1,27 +1,27 @@
 //READ ON FOR INSTRUCTIONS!
 
-var face = ""; /*Between the quotation marks, 
-       describe what "face" means to you. 
+var face = ""; /*Between the quotation marks,
+       describe what "face" means to you.
        See if you can avoid using the word or its synonyms
        in your description -- if you can't, that's okay.
-       
-       Keep your description in noun form so that it can 
+
+       Keep your description in noun form so that it can
        be swapped out into a sentence.
 
-       EXAMPLE: for cheese, a possible description would be 
-       "milk that has been left sitting out for a long time." 
-       You could swap the word "cheese" with 
-       this phrase in a sentence, 
-       and the sentence would still make sense. 
+       EXAMPLE: for cheese, a possible description would be
+       "milk that has been left sitting out for a long time."
+       You could swap the word "cheese" with
+       this phrase in a sentence,
+       and the sentence would still make sense.
 
-       Don't use any additional quotation 
+       Don't use any additional quotation
        marks ("") in your description. */
 
 var red = ""; //repeat the instructions with the word "red" (keep in the form of a noun)
 
 var brain = ""; //repeat the instructions for the word "brain"
 
-var masculine = ""; //define 'masculine' in ADJECCTIVE form, so 
+var masculine = ""; //define 'masculine' in ADJECCTIVE form, so
 //you could sub it into a sentence that uses the word as an ADJECTIVE
 
 var think = ""; //define 'think' in VERB form,
@@ -31,18 +31,18 @@ var think = ""; //define 'think' in VERB form,
    when you have finished lines 1 - 27, click the menu icon at the
    very top left corner of the screen
    click File>Save
-   refresh to register your changes. 
+   refresh to register your changes.
 
    click the screen to the right to advance the program
 
-   when clicking no longer does anything, 
-   you've completed this exercise! 
-   
-   DON'T SCROLL DOWN 
-   until you've finished clicking through! 
-   
-   once you've finished, 
-   you can explore the source code if you like. 
+   when clicking no longer does anything,
+   you've completed this exercise!
+
+   DON'T SCROLL DOWN
+   until you've finished clicking through!
+
+   once you've finished,
+   you can explore the source code if you like.
    or you can move on to steps 3 and 4 in the PDF
 
        .
@@ -78,17 +78,17 @@ function possesiveNoun(word){
     }
 
     word = word.replace("your", "my");
-    return word; 
+    return word;
 }
 
 brain = possesiveNoun(brain);
 face = possesiveNoun(face);
 
 if(red.indexOf('color') == 0){
-    red = 'the ' + red; 
+    red = 'the ' + red;
 }
 
-//populate madlibs using string literals 
+//populate madlibs using string literals
 var madlibs = [];
 madlibs.push(`My ${face} became ${red} as I spoke. `);
 madlibs.push(`The sunset was ${red} last night. `);
@@ -195,7 +195,7 @@ var createScene = function () {
     //start on black
     light.intensity = 0;
     //red sunset wall
-    //camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 20, 10), scene); 
+    //camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 20, 10), scene);
     var opos = new BABYLON.Vector3(7, 5, 2); //iniitial position
     camera = new BABYLON.FreeCamera("camera1", opos, scene);
     //var sunsetTarget = new BABYLON.Vector3(20, 2, 10);
@@ -245,25 +245,25 @@ var createScene = function () {
     //         blueMat.diffuseColor = new BABYLON.Color3(165 / 255, 42 / 255, 42 / 255);
     //         meshes[0].material = blueMat;
     //         meshes[0].position = new BABYLON.Vector3(14, 0, -10);
-    //         //meshes[0].rotation.x += MATH.PI/2; 
+    //         //meshes[0].rotation.x += MATH.PI/2;
     //         meshes[0].scaling = new BABYLON.Vector3(0.06, 0.06, 0.06);
 
     //     });
 
-    //grid(); 
+    //grid();
     //coatrack
-    //grid(); 
+    //grid();
 
-    //grid(); 
-    // 
-    //animate to focus position 
+    //grid();
+    //
+    //animate to focus position
     //var anims = animateCam(camera.position, new BABYLON.Vector3(12, 3, 9), camera.rotation, new BABYLON.Vector3(0, Math.PI, 0));
     var pointlight;
     var blue_pointlight;
     var bulb_pointlight;
 
-     var table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
-                    var coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
+    var table = placeObject('https://howshekilledit.github.io/houseofwords/models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
+    var coke = placeObject('https://howshekilledit.github.io/houseofwords/models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0));
 
     function roomclick(clicks) {
         start = document.getElementById('start');
@@ -288,7 +288,7 @@ var createScene = function () {
                     var campos = new BABYLON.Vector3(12, 6.5, -10)
                     //camera.setTarget(new BABYLON.Vector3(11, 2, -25));
                     var camrot = new BABYLON.Vector3(0.2908470948675594, -3.0750244898139694, 0);
-                   
+
                     camera.position = campos;
                     camera.rotation = camrot;
 
@@ -374,7 +374,7 @@ var createScene = function () {
                     pointlight.intensity = 0;
                     var mascmat = buildMat(madlibs[5], 40, 3000, 1000, "house", scene, "black");
                     house.material = mascmat;
-                    bathroomWall.material = mascmat; 
+                    bathroomWall.material = mascmat;
                     var rack = placeObject('https://howshekilledit.github.io/houseofwords/models/clothes_rack_with_hangers/',
                         'clothes rack with hangers obj.obj', new BABYLON.Vector3(23, 0, -12), scene, 0.0065,
                         new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0.2, 0.2, 0.2));
@@ -383,7 +383,7 @@ var createScene = function () {
 
                     //bird's eye
 
-                    //grid(); 
+                    //grid();
                 }, function () {
                     //brain room
                     bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
@@ -400,7 +400,7 @@ var createScene = function () {
                     var anims = animateCam(camera.position, campos, camera.rotation, camrot);
                 },
                 // function(){
-                //     light.intensity = 1; 
+                //     light.intensity = 1;
                 //     camera.position = new BABYLON.Vector3(10, 6, 4);
                 //     camera.setTarget(new BABYLON.Vector3(7, 3, -8));
                 //     house.material = buildMat(" ", 30, 2000, 2000, "plain", scene)
@@ -754,7 +754,7 @@ var createScene = function () {
     cDoorSpace = new doorSpace(door2, 2.25);
     walls6[0].doorSpaces = [cDoorSpace]
 
-    smallWall3 = buildFromPlan(walls6, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), 
+    smallWall3 = buildFromPlan(walls6, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1),
         exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, madlibs[0]);
     //smallWall3.material = buildMat("smallWall3 ", 30, 2000, 1000, "smallWall3", scene, "viovar");
     ;
@@ -820,25 +820,25 @@ var createScene = function () {
 
     /*Rotation Animation
     var yRot = new BABYLON.Animation("yRot", "rotation.y", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-    
-    var keyFramesR = []; 
-    
+
+    var keyFramesR = [];
+
     keyFramesR.push({
         frame: 0,
         value: 0
     });
-    
+
     keyFramesR.push({
         frame: frameRate,
         value: Math.PI
     });
-    
+
     keyFramesR.push({
         frame: 2 * frameRate,
         value: 2 * Math.PI
     });
-    
-    
+
+
     yRot.setKeys(keyFramesR);
     */
     //scene.beginDirectAnimation(camera, [dolly], 0, 2 * frameRate, false);
