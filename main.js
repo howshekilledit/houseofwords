@@ -1,6 +1,6 @@
 //READ ON FOR INSTRUCTIONS!
 
-var face = ""; /*Between the quotation marks,
+var face = "expressive body part"; /*Between the quotation marks,
        describe what "face" means to you.
        See if you can avoid using the word or its synonyms
        in your description -- if you can't, that's okay.
@@ -17,26 +17,26 @@ var face = ""; /*Between the quotation marks,
        Don't use any additional quotation
        marks ("") in your description. */
 
-var red = ""; //repeat the instructions with the word "red" (keep in the form of a noun)
+var red = "color of anger"; //repeat the instructions with the word "red" (keep in the form of a noun)
 
-var brain = ""; //repeat the instructions for the word "brain"
+var brain = "cogitating muscle"; //repeat the instructions for the word "brain"
 
-var masculine = ""; //define 'masculine' in ADJECCTIVE form, so
+var masculine = "inverted"; //define 'masculine' in ADJECCTIVE form, so
 //you could sub it into a sentence that uses the word as an ADJECTIVE
 
-var think = ""; //define 'think' in VERB form,
+var think = "process information"; //define 'think' in VERB form,
 //so you could sub it into a sentence that uses the word as a VERB
 
 /*
-   when you have finished lines 1 - 30, 
+   when you have finished lines 1 - 30,
     save your works
     by hitting CMND+S or CTRL+S, or by clicking
-    the icon on the very top left of the screen and 
+    the icon on the very top left of the screen and
     selecting File>Save
     If it doesnt' show up automatically,
-    refresh the browser to see your output! 
+    refresh the browser to see your output!
 
-   refresh to register your changes. 
+   refresh to register your changes.
 
    click the screen to the right to advance the program
 
@@ -169,52 +169,6 @@ var createScene = function () {
     //works for all floating point animations, takes array of animation objects
     //with obj, prop, val and optional dims properties
     //starts with current value and animates to "val"
-    function animate(animations, seconds = 3) {
-        //generates discrete animation to add to objects anims
-        function addAnim(type, coord, pos1, pos2, frameRate) {
-            var anim_name;
-            var anim_type; 
-            var keys = []; 
-            if(coord){
-                anim_name = type + "_" + coord;
-                anim_type = type + "." + coord;
-                keys.push(pos1[coord]);
-                keys.push(pos2[coord]);  
-            }else{
-                anim_name = type;
-                anim_type = type;
-                keys.push(pos1);
-                keys.push(pos2);  
-            }
-            var anim = new BABYLON.Animation(anim_name, anim_type, frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-            var keyFrames = [];
-            keyFrames.push({ frame: 0, value: keys[0] });
-            keyFrames.push({ frame: frameRate * seconds, value: keys[1]});
-            anim.setKeys(keyFrames);
-            return anim;
-        }
-
-    
-        var frameRate = 5;
-        var all_animations = [];
-        //iterate through each animation object
-        for (let anim of animations) {
-            anim.anims = [];
-            if (anim.dims) { //if there are dimensions, add one animation for each
-                for (const dim of anim.dims) {
-                    anim.anims.push(addAnim(anim.prop, dim, anim.obj[anim.prop], anim.val, frameRate));
-                }
-            } else { //otherwise add just one animation
-                anim.anims.push(addAnim(anim.prop, false, anim.obj[anim.prop], anim.val, frameRate));
-            }
-            //initalize animationz
-            all_animations.push(anim.anims)
-            scene.beginDirectAnimation(anim.obj, anim.anims, 0, seconds * frameRate, false);
-        }
-        return all_animations;
-
-
-    }
 
 
 
@@ -253,14 +207,7 @@ var createScene = function () {
 
 
 
-    //sunset text (second click)
-    var sunset = threeDText(madlibs[1], new BABYLON.Vector3(-10, 5.5, 12), scene);
 
-    //police text (third click)
-    var pp = threeDText(madlibs[3], new BABYLON.Vector3(-26, 6, 4), scene);
-
-    var pp_sps = pp.getSPS();
-    pp_sps.mesh.rotation.y += Math.PI;
     var pointlight;
     var blue_pointlight;
     var bulb_pointlight;
@@ -271,12 +218,14 @@ var createScene = function () {
     var glass;
     var table;
     var coke;
+    var text_sculpt;
+    var text_material;
 
     scene.executeWhenReady(() => {
 
         //first room
         table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
-        coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0), 0.4);
+        coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0), 0.2);
 
         //initialize glass for mirror room
 
@@ -309,13 +258,13 @@ var createScene = function () {
 
                     camera.position = campos;
                     camera.rotation = camrot;
-                    //grid(); 
+                    //grid();
 
                     //var anims = animateCam(camera.position, campos, camera.rotation, camrot);
                     //stage objects for blue coke room
                     var blue_table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(14, 0, -10), scene, scale = 0.065);
                     var blue_coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(14, 3.5, -10), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0, 0, 1), 0.7);
-
+                   // grid();
                     //END RED COKE ROOM
                 },
                 function () {
@@ -332,7 +281,7 @@ var createScene = function () {
                     //camera.setTarget(new BABYLON.Vector3(20, 4, -11));
                     var camrot = new BABYLON.Vector3(0.24497866312686414, -1.7, 0);
                     var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
-                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }]);
+                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }], scene);
                     //stage objects for mirror room
                     glass = BABYLON.MeshBuilder.CreatePlane("glass", { width: 4, height: 7 }, scene);
                     glass.position = new BABYLON.Vector3(30, 3, -6);
@@ -357,7 +306,7 @@ var createScene = function () {
                     //camera.setTarget(new BABYLON.Vector3(26, 2.5, -15.5));
                     var camrot = new BABYLON.Vector3(0.330946081002134, -2.8890383778117337, 0);
                     var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
-                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }]);
+                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }], scene);
                     house.material = buildMat(madlibs[0], 32, 3000, 1000, "house", scene, "red", true);
 
 
@@ -401,7 +350,7 @@ var createScene = function () {
                     var camrot = new BABYLON.Vector3(0.25576149251471497, 0, 0);
 
                     var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
-                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }]);
+                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }], scene);
                     blue_pointlight.intensity = 0;
                     pointlight.intensity = 0;
 
@@ -412,7 +361,8 @@ var createScene = function () {
                     //bird's eye
 
                     //grid();
-                }, function () {
+                },
+                function () {
                     //brain room
                     bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
                     var bulb = placeObject('../models/Bulb/',
@@ -430,7 +380,7 @@ var createScene = function () {
                     //camera.setTarget(new BABYLON.Vector3(11, 3, -6));
                     var camrot = new BABYLON.Vector3(0.29009034157436236, 2.8, 0);
                     var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
-                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }]);
+                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }], scene);
                 },
                 function () {
                     light.intensity = 1;
@@ -439,18 +389,28 @@ var createScene = function () {
 
                     var newscale = new BABYLON.Vector3(0.1, 0.1, 0.1);
 
-                    var anims = animate([{ obj: light, prop: 'intensity', val: 0, dims: false}, 
-                    { obj: bulb_pointlight, prop: 'intensity', val: 0, dims: false}]);
+                    var anims = animate([/*{ obj: bulb_pointlight, prop: 'intensity', val: 0, dims: false},*/
+                    {obj: camera, prop: 'rotation', val:new BABYLON.Vector3(0.23794112936628264, 3.3, 0), dims: ['x', 'y', 'z']}
+                    ], scene, 2);
 
                     //camera.setTarget(new BABYLON.Vector3(7, 3, -8));
-                    //house.material = buildMat(" ", 30, 2000, 2000, "plain", scene)
-                    threeDText(madlibs[4], new BABYLON.Vector3(6, 6, -3), scene,
-                        new BABYLON.Vector3(-Math.PI, 0, 0));
+                    console.log(camera.rotation);
+                    text_material = new BABYLON.StandardMaterial('text material', scene);
+                    text_material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+                    text_material.alpha = 0;
+                    text_sculpt = threeDText(madlibs[4], new BABYLON.Vector3(8.5, 6, -3), scene,
+                        new BABYLON.Vector3(Math.PI, Math.PI, Math.PI));
+                    text_sculpt.material = text_material;
                 },
 
                 function () {
-                    var anims = animateCam(light.intensity, 0, bulb_pointlight.intensity, 0);
-                    start.textContent = "You've reached the end! Time to reflect on the rooms you made."
+                    var light_anim = { obj: light, prop: 'intensity', val: 0, dims: false};
+                    var text_appear = { obj: text_material, prop: 'alpha', val: 1, dims: false};
+                    var anims = animate( [light_anim, text_appear, { obj: house.material, prop: 'alpha', val: 0, dims: false}], scene);
+                },
+                function () {
+                    var anims = animate([{ obj: blue_pointlight, prop: 'intensity', val: 0, dims: false}], scene);
+                    start.textContent = "You've reached the end! Time to reflect on what you've created, and perhaps to make your own room."
                 }
 
             ];
@@ -461,35 +421,6 @@ var createScene = function () {
     }
 
 
-
-
-    // });
-    //bed
-    // var bedpos = new BABYLON.Vector3(-18, 0, 9);
-    // var bedrot = new BABYLON.Vector3(0, -0.6, 0);
-    // var bed = placeObject("https://howshekilledit.github.io/how_models/", "bed.obj", bedpos, scene, .004, bedrot);
-
-    // //chair
-    // var chair = BABYLON.SceneLoader.ImportMesh(
-    //     "",
-    //     "https://raw.githubusercontent.com/howshekilledit/critical_cookbook/main/", "chair.obj",
-    //     scene,
-    //     function (meshes) {
-    //         for (const mesh of meshes) {
-
-    //             var blueMat = new BABYLON.StandardMaterial('blue', scene);
-    //             blueMat.diffuseColor = new BABYLON.Color3(0, 0, 0);
-    //             mesh.material = blueMat;
-    //             mesh.position = new BABYLON.Vector3(9, 0, 7);
-    //             mesh.rotation = new BABYLON.Vector3(0, 1, 0);
-    //             mesh.scaling = new BABYLON.Vector3(0.04, 0.04, 0.04);
-    //         }
-
-    //     });
-
-
-
-    //camera.attachControl(canvas, true);
 
 
 
