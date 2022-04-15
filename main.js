@@ -496,7 +496,7 @@ var createScene = function () {
     ];
 
     var corners = [];
-    for (b = 0; b < baseData.length / 2; b++) {
+    for (b = 0; b < baseData.length / 2; bgi++) {
         corners.push(new corner(baseData[2 * b], baseData[2 * b + 1]));
     }
 
@@ -733,7 +733,7 @@ var createScene = function () {
         walls7.push(new wall(corners7[c]));
     }
 
-    smallWall4 = buildFromPlan(walls7, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, "smallWall4", 'pink');
+    smallWall4 = buildFromPlan(walls7, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, madlibs[2], 'pink');
     //smallWall4.material = mat;
 
     var innerData8 = [0, -2, -12, -2];
