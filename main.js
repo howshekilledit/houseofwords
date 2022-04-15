@@ -1,6 +1,6 @@
 //READ ON FOR INSTRUCTIONS!
 
-var face = ""; /*Between the quotation marks,
+var face = "face"; /*Between the quotation marks,
        describe what "face" means to you.
        See if you can avoid using the word or its synonyms
        in your description -- if you can't, that's okay.
@@ -17,14 +17,14 @@ var face = ""; /*Between the quotation marks,
        Don't use any additional quotation
        marks ("") in your description. */
 
-var red = ""; //repeat the instructions with the word "red" (keep in the form of a noun)
+var red = "red"; //repeat the instructions with the word "red" (keep in the form of a noun)
 
-var brain = ""; //repeat the instructions for the word "brain"
+var brain = "brain"; //repeat the instructions for the word "brain"
 
-var masculine = ""; //define 'masculine' in ADJECCTIVE form, so
+var masculine = "masculine"; //define 'masculine' in ADJECCTIVE form, so
 //you could sub it into a sentence that uses the word as an ADJECTIVE
 
-var think = ""; //define 'think' in VERB form,
+var think = "think"; //define 'think' in VERB form,
 //so you could sub it into a sentence that uses the word as a VERB
 
 /*
