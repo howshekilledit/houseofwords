@@ -496,7 +496,7 @@ var createScene = function () {
     ];
 
     var corners = [];
-    for (b = 0; b < baseData.length / 2; bgi++) {
+    for (b = 0; b < baseData.length / 2; b++) {
         corners.push(new corner(baseData[2 * b], baseData[2 * b + 1]));
     }
 
