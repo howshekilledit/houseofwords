@@ -236,7 +236,7 @@ var createScene = function () {
         start = document.getElementById('start');
         start.textContent = ""
         if (words.indexOf("") > -1) {
-            start.textContent = "Please define all words, per instructions at the top of main.js, and hit save, before you click again. "
+            start.textContent = "Please define all words, per instructions at the top of main.js. Hit save before you click again. "
 
         } else {
             var rooms = [
