@@ -27,6 +27,14 @@ var masculine = ""; //define 'masculine' in ADJECCTIVE form, so
 var think = ""; //define 'think' in VERB form,
 //so you could sub it into a sentence that uses the word as a VERB
 
+//SPEED POPULATE (REMOVE FROM FINAL)
+face = "face";
+red = "red";
+brain = "brain";
+masculine = "masculine";
+think = "think";
+
+
 /*
    when you have finished lines 1 - 30,
     save your works
