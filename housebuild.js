@@ -823,19 +823,22 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
         file,
         scene,
         function (meshes) {
-           //var mat = new BABYLON.StandardMaterial('colormat', scene);
-           // mat.diffuseColor = new BABYLON.Color3(clr.r, clr.g, clr.b);
+
 
            for (const mesh of meshes) {
             mesh.position = position;
             mesh.rotation = rotation;
-            //meshes[0].rotation.x += MATH.PI/2;
             mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
             let mat = new BABYLON.StandardMaterial("coke material", scene);
             mat.diffuseColor = texture;
             mat.alpha= transparency;
             mesh.material = mat;
+
             renderList.push(mesh);
+
+            //reduce render time with freezing operations
+            mesh.freezeWorldMatrix();
+            mesh.doNotSyncBoundingInfo = true;
 
            }
         }
@@ -927,6 +930,8 @@ function buildMat(text, fontSize, cWidth, cHeight, name, scene, color = "black",
     mat.diffuseTexture = matTexture;
 
     matTexture = textTure(text, matTexture, fontSize, cWidth, cHeight, color, flip, bg);
+    mat.freeze();
+
     return mat;
 }
 
