@@ -214,22 +214,22 @@ var createScene = function () {
     //place objects
 
     //first room (red coke)
-    table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
-    coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0), 0.3);
+    //table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
+    //coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0), 0.3);
     scene.executeWhenReady(() => {
         //second room (blue coke)
-        blue_table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(14, 0, -10), scene, scale = 0.065);
-        blue_coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(14, 3.5, -10), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0, 0, 1), 0.7);
+        // blue_table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(14, 0, -10), scene, scale = 0.065);
+        // blue_coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(14, 3.5, -10), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0, 0, 1), 0.7);
 
-        //stage objects for mirror room
-        glass = BABYLON.MeshBuilder.CreatePlane("glass", { width: 4, height: 7 }, scene);
-        glass.position = new BABYLON.Vector3(30, 3, -6);
-        glass.rotation = new BABYLON.Vector3(0.1, Math.PI / 2, 0);
+        // //stage objects for mirror room
+        // glass = BABYLON.MeshBuilder.CreatePlane("glass", { width: 4, height: 7 }, scene);
+        // glass.position = new BABYLON.Vector3(30, 3, -6);
+        // glass.rotation = new BABYLON.Vector3(0.1, Math.PI / 2, 0);
 
-        //stage objects for masculinity room
-        var rack = placeObject('https://howshekilledit.github.io/how_models/clothes_rack_with_hangers/',
-            'clothes rack with hangers obj.obj', new BABYLON.Vector3(23, 0, -3.5), scene, 0.0065,
-            new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0.2, 0.2, 0.2));
+        // //stage objects for masculinity room
+        // var rack = placeObject('https://howshekilledit.github.io/how_models/clothes_rack_with_hangers/',
+        //     'clothes rack with hangers obj.obj', new BABYLON.Vector3(23, 0, -3.5), scene, 0.0065,
+        //     new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0.2, 0.2, 0.2));
 
     });
     if (words.indexOf("") == -1) {
@@ -263,7 +263,7 @@ var createScene = function () {
 
                     camera.position = campos;
                     camera.rotation = camrot;
-                    //grid();
+                    grid();
                     var anims = animate([{
                         obj: light, prop: 'intensity',
                         val: 1
