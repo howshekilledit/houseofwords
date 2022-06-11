@@ -68,7 +68,7 @@ var think = ""; //define 'think' in VERB form,
 
 //SPEED POPULATE (REMOVE FROM FINAL)
 face = "face";
-red = "red";
+red = "the color of passion and blood";
 brain = "brain";
 masculine = "masculine";
 think = "think";
@@ -214,28 +214,32 @@ var createScene = function () {
     //place objects
 
     //first room (red coke)
-    //table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
-    //coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0), 0.3);
+    table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(11, 0, -21), scene, scale = 0.065);
+    coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(11, 3.5, -21), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(1, 0, 0), 0.3);
+
+    //prepare glass variable
+    glass = BABYLON.MeshBuilder.CreatePlane("glass", { width: 4, height: 7 }, scene);
+
     scene.executeWhenReady(() => {
+
+
+
         //second room (blue coke)
-        // blue_table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(14, 0, -10), scene, scale = 0.065);
-        // blue_coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(14, 3.5, -10), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0, 0, 1), 0.7);
+        blue_table = placeObject('https://howshekilledit.github.io/how_models/Side_Table_04_OBJ/', 'Side_Table_04.obj', new BABYLON.Vector3(14, 0, -10), scene, scale = 0.065);
+        blue_coke = placeObject('https://howshekilledit.github.io/how_models/', 'Coca_Cola_Bottle_Turbosquid_2012.obj', new BABYLON.Vector3(14, 3.5, -10), scene, 0.1, new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0, 0, 1), 0.7);
 
         // //stage objects for mirror room
-        // glass = BABYLON.MeshBuilder.CreatePlane("glass", { width: 4, height: 7 }, scene);
-        // glass.position = new BABYLON.Vector3(30, 3, -6);
-        // glass.rotation = new BABYLON.Vector3(0.1, Math.PI / 2, 0);
+
+        glass.position = new BABYLON.Vector3(30, 3, -6);
+        glass.rotation = new BABYLON.Vector3(0.1, Math.PI / 2, 0);
 
         // //stage objects for masculinity room
-        // var rack = placeObject('https://howshekilledit.github.io/how_models/clothes_rack_with_hangers/',
-        //     'clothes rack with hangers obj.obj', new BABYLON.Vector3(23, 0, -3.5), scene, 0.0065,
-        //     new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0.2, 0.2, 0.2));
+        var rack = placeObject('https://howshekilledit.github.io/how_models/clothes_rack_with_hangers/',
+            'clothes rack with hangers obj.obj', new BABYLON.Vector3(23, 0, -3.5), scene, 0.0065,
+            new BABYLON.Vector3(0, 0, 0), new BABYLON.Color3(0.2, 0.2, 0.2));
 
     });
-    if (words.indexOf("") == -1) {
-        roomclick(0);
-        clicks++;
-    }
+
 
     //array of procedures for each room as user progresses through
     function roomclick(clicks) {
@@ -250,7 +254,7 @@ var createScene = function () {
 
                 function () {
 
-                    start.textContent = ""
+                    start.textContent = "";
 
                     //BEGIN RED COKE ROOM ({red})
                     pointlight = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(16, 5, 26), scene);
@@ -263,7 +267,7 @@ var createScene = function () {
 
                     camera.position = campos;
                     camera.rotation = camrot;
-                    grid();
+                    //grid();
                     var anims = animate([{
                         obj: light, prop: 'intensity',
                         val: 1
@@ -283,7 +287,7 @@ var createScene = function () {
                     pointlight.intensity = 0.5;
 
                     //camera
-                    var campos = new BABYLON.Vector3(12, 6.5, -10);
+                    var campos = new BABYLON.Vector3(30, 6.5, -11);
                     //camera.setTarget(new BABYLON.Vector3(20, 4, -11));
                     var camrot = new BABYLON.Vector3(0.24497866312686414, -1.7, 0);
                     var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
@@ -308,7 +312,7 @@ var createScene = function () {
                     var camrot = new BABYLON.Vector3(0.330946081002134, -2.8890383778117337, 0);
                     var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
                     { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }], scene);
-                    house.material = buildMat(madlibs[0], 32, 3000, 1000, "house", scene, "red", true);
+                    //house.material = buildMat(madlibs[0], 32, 3000, 1000, "house", scene, "red", true);
 
 
                     //Ensure working with new values for glass by computing and obtaining its worldMatrix
@@ -399,7 +403,9 @@ var createScene = function () {
                 function () {
                     var light_anim = { obj: light, prop: 'intensity', val: 0, dims: false };
                     var text_appear = { obj: text_material, prop: 'alpha', val: 1, dims: false };
-                    var anims = animate([light_anim, text_appear, { obj: house.material, prop: 'alpha', val: 0, dims: false }], scene);
+                    var housemat = house.material;
+                    var house_fade = { obj: house.material, prop: 'alpha', val: 0, dims: false };
+                    var anims = animate([light_anim, text_appear, house_fade], scene);
                 },
                 function () {
                     var anims = animate([{ obj: blue_pointlight, prop: 'intensity', val: 0, dims: false }], scene);
@@ -769,11 +775,22 @@ var createScene = function () {
 
 
     dolly.setKeys(keyFramesP);
+
     canvas.addEventListener("click", function () {
         roomclick(clicks);
         clicks++;
     });
 
+    //roll to desired room
+    if (words.indexOf("") == -1) {
+    var room = 1;
+    (function() {
+        for(var i = 0; i < room; i++){
+            roomclick(i);
+            clicks++;
+        }
+    })();
+    }
     /*Rotation Animation
     var yRot = new BABYLON.Animation("yRot", "rotation.y", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
@@ -813,6 +830,7 @@ var createScene = function () {
 
     return scene;
 };
+
 
 window.initFunction = async function () {
 

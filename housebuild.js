@@ -772,8 +772,13 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
 //starts with current value and animates to "val"
 function animate(animations, scene, seconds = 3) {
     //generates discrete animation to add to objects anims
+
     var frameRate = 5;
     var all_animations = [];
+
+    //speed through in working version. comment out for live version.
+    seconds = 0.1;
+
     //iterate through each animation object
     for (let anim of animations) {
         anim.anims = [];
