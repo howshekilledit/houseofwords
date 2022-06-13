@@ -1,5 +1,5 @@
 //The roofprint is the footprint of the roof, it follows the floor plan of the house but is extended by the overlap
-let renderList = [];
+
 
 
 var roofprint = function (corners, overlap, height) {
@@ -770,18 +770,26 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
 //works for all floating point animations, takes array of animation objects
 //with obj, prop, val and optional dims properties
 //starts with current value and animates to "val"
+//if val is inputted as an array, each value will be
+//executed subsequently
+//and the total length of the animatiosn will be seconds * val.length
 function animate(animations, scene, seconds = 3) {
     //generates discrete animation to add to objects anims
 
     var frameRate = 5;
     var all_animations = [];
-
+    var start = 0;
     //speed through in working version. comment out for live version.
-    seconds = 0.1;
+    //seconds = 0.1;
 
     //iterate through each animation object
     for (let anim of animations) {
         anim.anims = [];
+
+        //assigns array if not
+
+
+
         if (anim.dims) { //if there are dimensions, add one animation for each
             for (const dim of anim.dims) {
                 anim.anims.push(discreteAnim(anim.prop, dim, anim.obj[anim.prop], anim.val, frameRate, seconds));
@@ -789,48 +797,70 @@ function animate(animations, scene, seconds = 3) {
         } else { //otherwise add just one animation
             anim.anims.push(discreteAnim(anim.prop, false, anim.obj[anim.prop], anim.val, frameRate, seconds));
         }
+
         //initalize animationz
         all_animations.push(anim.anims);
-        scene.beginDirectAnimation(anim.obj, anim.anims, 0, seconds * frameRate, false);
+        var anim_turns = 1;
+        if(Array.isArray(anim.val)){
+            anim_turns = anim.val.length;
+        }
+
+        scene.beginDirectAnimation(anim.obj, anim.anims, 0, seconds * frameRate * anim_turns, false);
+
     }
+
     return all_animations;
 }
 
 //creates animation for a discrete property
-function discreteAnim(type, dim, pos1, pos2, frameRate, seconds) {
+function discreteAnim(type, dim, start_val, sub_vals, frameRate, seconds) {
     var anim_name;
     var anim_type;
     var keys = [];
-    if(dim){
-        anim_name = type + "_" + dim;
-        anim_type = type + "." + dim;
-        keys.push(pos1[dim]);
-        keys.push(pos2[dim]);
-    }else{
-        anim_name = type;
-        anim_type = type;
-        keys.push(pos1);
-        keys.push(pos2);
+    if(Array.isArray(sub_vals) == false){
+        sub_vals = [sub_vals];
     }
+    for(let [i, val] of sub_vals.entries()){
+        if(dim){
+            anim_name = type + "_" + dim;
+            anim_type = type + "." + dim;
+            if(i == 0){
+                keys.push(start_val[dim]);
+            }
+            keys.push(val[dim]);
+        }else{
+            anim_name = type;
+            anim_type = type;
+            if(i == 0){
+                keys.push(start_val);
+            }
+            keys.push(val);
+        }
+    }
+
     var anim = new BABYLON.Animation(anim_name, anim_type, frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
     var keyFrames = [];
-    keyFrames.push({ frame: 0, value: keys[0] });
-    keyFrames.push({ frame: frameRate*seconds, value: keys[1]});
+
+    for(var j = 0; j < keys.length; j++){
+        keyFrames.push({ frame: j*frameRate*(seconds), value: keys[j] });
+    }
+
     anim.setKeys(keyFrames);
     return anim;
 }
+
 //load and place object in scene
-function placeObject(folder, file, position, scene, scale = 1, rotation = new BABYLON.Vector3(0, 0, 0), texture = new BABYLON.Color3(0.5, 0.5, 0.5), transparency = 1){
+function placeObject(folder, file, position, scene, scale = 1, obj_name = "noname", rotation = new BABYLON.Vector3(0, 0, 0),  texture = new BABYLON.Color3(0.5, 0.5, 0.5), transparency = 1){
 
     let object = BABYLON.SceneLoader.ImportMesh(
         null,
-         folder,
+        folder,
         file,
         scene,
         function (meshes) {
+            let object_meshes = [];
+           for (const [i, mesh] of meshes.entries()) {
 
-
-           for (const mesh of meshes) {
             mesh.position = position;
             mesh.rotation = rotation;
             mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
@@ -838,21 +868,41 @@ function placeObject(folder, file, position, scene, scale = 1, rotation = new BA
             mat.diffuseColor = texture;
             mat.alpha= transparency;
             mesh.material = mat;
+            //adds mesh to rendset variable, declared as global
+            //in main.js (modify appropriately if transferrign function)
+            rendset.push(mesh);
 
-            renderList.push(mesh);
 
             //reduce render time with freezing operations
             mesh.freezeWorldMatrix();
             mesh.doNotSyncBoundingInfo = true;
+            mesh.name = obj_name + '-' + i;
+            object_meshes.push(mesh);
+
 
            }
+
+
+
+
         }
+
+
     );
 
-    return object;
+
 
 }
 
+function getMeshes(obj_name, mesh_set){
+    var meshes = [];
+    for(var mesh of mesh_set){
+        if(mesh.name.slice(0, obj_name.length) == obj_name){
+            meshes.push(mesh);
+        }
+    }
+    return(meshes);
+}
 //3d text
 function threeDText(str, position, scene, rotation = new BABYLON.Vector3(0,0,0), fontSize = 0.3, cWidth = 3, cHeight = 5, scale = 1, maxWidth = 4) {
     Writer = BABYLON.MeshWriter(scene, { scale: scale });
