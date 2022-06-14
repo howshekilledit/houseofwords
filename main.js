@@ -235,10 +235,10 @@ var createScene = function () {
         renderList = rendset;
 
         //stage desk & computer
-        placeObject('../how_models/antique_wooden_desk/', 'desk.obj', new BABYLON.Vector3(3, 0, -2), scene, 3, 'desk',
+        placeObject('https://howshekilledit.github.io/how_models/antique_wooden_desk/', 'desk.obj', new BABYLON.Vector3(3, 0, -2), scene, 3, 'desk',
             new BABYLON.Vector3(0, 0, 0), false);
 
-        placeObject('../how_models/retro_computer/', 'compu.obj', new BABYLON.Vector3(3, 3, -2), scene, 1, 'compu',
+        placeObject('https://howshekilledit.github.io/how_models/retro_computer/', 'compu.obj', new BABYLON.Vector3(3, 3, -2), scene, 1, 'compu',
             new BABYLON.Vector3(0, 0, 0), false, 1, false);
 
         //stage 3D text
