@@ -754,10 +754,10 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
         } else {
             texture.drawText(thisLine, 410, 50 + i * fontSize * 1.5, font, color);
             var linePos = thisLine.indexOf(text); //position of full madlib in this line
-            if (linePos > 1 & numred < 3) {
-                texture.drawText(`${' '.repeat(linePos)}${text}`, 410, 50 + i * fontSize * 1.5, font, 'red');
-                numred++;
-            }
+            // if (linePos > 1 & numred < 3) {
+            //     texture.drawText(`${' '.repeat(linePos)}${text}`, 410, 50 + i * fontSize * 1.5, font, 'red');
+            //     numred++;
+            // }
         }
     }
     if(flip){
@@ -780,7 +780,9 @@ function animate(animations, scene, seconds = 3) {
     var all_animations = [];
     var start = 0;
     //speed through in working version. comment out for live version.
-    //seconds = 0.1;
+    if(clicks < 7){
+    seconds = 0.1;
+    }
 
     //iterate through each animation object
     for (let anim of animations) {
@@ -864,10 +866,14 @@ function placeObject(folder, file, position, scene, scale = 1, obj_name = "nonam
             mesh.position = position;
             mesh.rotation = rotation;
             mesh.scaling = new BABYLON.Vector3(scale, scale, scale);
-            let mat = new BABYLON.StandardMaterial("coke material", scene);
-            mat.diffuseColor = texture;
-            mat.alpha= transparency;
-            mesh.material = mat;
+
+            if(texture){
+                let mat = new BABYLON.StandardMaterial("coke material", scene);
+                mat.diffuseColor = texture;
+                mesh.material = mat;
+            }
+            mesh.material.alpha= transparency;
+
             //adds mesh to rendset variable, declared as global
             //in main.js (modify appropriately if transferrign function)
             rendset.push(mesh);
