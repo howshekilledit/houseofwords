@@ -66,12 +66,7 @@ var think = ""; //define 'think' in VERB form,
 
        */
 
-//SPEED POPULATE (REMOVE FROM FINAL)
-face = "most expressive body part";
-red = "the color of passion and blood";
-brain = "cogitating organ";
-masculine = "possessing qualities that people think men have";
-think = "process information";
+
 
 
 //attempt to adjust pronouns to fit sentences
