@@ -780,9 +780,9 @@ function animate(animations, scene, seconds = 3, loop = false) {
     var all_animations = [];
     var start = 0;
     //speed through in working version. comment out for live version.
-    if(clicks < 8){
-    seconds = 0.1;
-    }
+    // if(clicks < 8){
+    // seconds = 0.1;
+    //}
 
     //iterate through each animation object
     for (let anim of animations) {
