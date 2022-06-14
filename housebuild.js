@@ -886,7 +886,7 @@ function placeObject(folder, file, position, scene, scale = 1, obj_name = "nonam
             console.log()
             mesh.name = obj_name + '-' + i;
             object_meshes.push(mesh);
-            console.log(obj_name, freezeBound);
+
 
 
            }
