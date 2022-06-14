@@ -773,14 +773,14 @@ function textTure(text, texture, fontSize, cWidth, cHeight, color, flip = true, 
 //if val is inputted as an array, each value will be
 //executed subsequently
 //and the total length of the animatiosn will be seconds * val.length
-function animate(animations, scene, seconds = 3) {
+function animate(animations, scene, seconds = 3, loop = false) {
     //generates discrete animation to add to objects anims
 
     var frameRate = 5;
     var all_animations = [];
     var start = 0;
     //speed through in working version. comment out for live version.
-    if(clicks < 7){
+    if(clicks < 8){
     seconds = 0.1;
     }
 
@@ -807,7 +807,7 @@ function animate(animations, scene, seconds = 3) {
             anim_turns = anim.val.length;
         }
 
-        scene.beginDirectAnimation(anim.obj, anim.anims, 0, seconds * frameRate * anim_turns, false);
+        scene.beginDirectAnimation(anim.obj, anim.anims, 0, seconds * frameRate * anim_turns, loop);
 
     }
 

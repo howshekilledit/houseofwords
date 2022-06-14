@@ -244,10 +244,10 @@ var createScene = function () {
         renderList = rendset;
 
         //stage desk & computer
-        placeObject('../how_models/antique_wooden_desk/', 'desk.obj', new BABYLON.Vector3(3, 0, -2), scene, 3, 'rack',
+        placeObject('../how_models/antique_wooden_desk/', 'desk.obj', new BABYLON.Vector3(3, 0, -2), scene, 3, 'desk',
         new BABYLON.Vector3(0, 0, 0), false);
 
-        placeObject('../how_models/retro_computer/', 'compu.obj', new BABYLON.Vector3(3, 3, -2), scene, 1, 'rack',
+        placeObject('../how_models/retro_computer/', 'compu.obj', new BABYLON.Vector3(3, 3, -2), scene, 1, 'compu',
         new BABYLON.Vector3(0, 0, 0), false);
 
     });
@@ -293,14 +293,6 @@ var createScene = function () {
                     //BEGIN BLUE COKE ROOM
                     //show wall
                     bathroomWall.setEnabled(true);
-
-
-                    //light
-                    // blue_pointlight = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(14, 3.5, -10), scene);
-                    // blue_pointlight.diffuse = new BABYLON.Color3(0, 0, 1);
-                    // blue_pointlight.specular = new BABYLON.Color3(0, 0, 1);
-                    // blue_pointlight.intensity = 1;
-                    //pointlight.intensity = 1;
 
                     //camera
                     //var campos = new BABYLON.Vector3(30, 6.5, -11);
@@ -381,7 +373,6 @@ var createScene = function () {
                     var anims = [{ obj: camera, prop: 'position', val: campos1, dims: ['x', 'y', 'z'] }];
                     var blue_coke_meshes = getMeshes('coke2', rendset);
                     for (var mesh of blue_coke_meshes) {
-                        console.log(mesh);
                         anims.push({
                             obj: mesh.material, prop: 'diffuseColor',
                             dims: ['r', 'g', 'b'], val: new BABYLON.Color3(1, 0, 0)
@@ -428,49 +419,64 @@ var createScene = function () {
                 function(){
                     //descartes
                     var campos3 = new BABYLON.Vector3(26, 5, -4);
-                    var campos4 = new BABYLON.Vector3(11, 6, -4);
+                    var campos4 = new BABYLON.Vector3(18, 6, -3);
 
                     var camrot2 = new BABYLON.Vector3(0.2, -1.5, 0);
-                    var camrot3 = new BABYLON.Vector3(0.35576149251471497, 0.3, 0);
+                    var camrot3 = new BABYLON.Vector3(0.3, -1.5, 0);
                     var anims = [{ obj: camera, prop: 'position', val: [campos3, campos4], dims: ['x', 'y', 'z'] },
-                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: [camrot2] }];
+                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: [camrot2, camrot3] }];
                     animate(anims, scene, 4);
                 },
                 function () {
                     //brain room
                     bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
-                    var bulb = placeObject('../models/Bulb/',
-                        'Bulb.obj', new BABYLON.Vector3(11, 6.75, -1), scene, 0.25,
-                        new BABYLON.Vector3(0, 0, Math.PI), new BABYLON.Color3(0.9, 0.9, 1), 0.7);
-                    // var bulb = placeObject('https://howshekilledit.github.io/how_models/',
-                    //     'Bulbul_(OBJ).obj', new BABYLON.Vector3(11, 5, -1), scene, 0.01,
-                    //     new BABYLON.Vector3(0, 0, Math.PI / 2), new BABYLON.Color4(0.8, 0.8, 0.8, 0.2));
-                    // bulb_pointlight = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(11, 6.5, -1), scene);
-                    // bulb_pointlight.diffuse = new BABYLON.Color3(0, 0, 1);
-                    // bulb_pointlight.specular = new BABYLON.Color3(0, 1, 1);
-                    // bulb_pointlight.intensity = 2;
-
-                    var campos = new BABYLON.Vector3(10, 6, 4);
+                    var campos1 = new BABYLON.Vector3(11, 6, -3);
+                    var campos2 = new BABYLON.Vector3(11, 7, 6);
                     //camera.setTarget(new BABYLON.Vector3(11, 3, -6));
-                    var camrot = new BABYLON.Vector3(0.29009034157436236, 2.8, 0);
-                    var anims = animate([{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
-                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot },
+                    var camrot = new BABYLON.Vector3(0.4, 3 - 2 * Math.PI, 0);
+                    //var camrot = new BABYLON.Vector3(0,0,0);
+                    var anims = [{ obj: camera, prop: 'position', val: [campos1, campos2], dims: ['x', 'y', 'z'] },
+                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: [camera.rotation, camrot] }];
+                    //var anims = [];
+                    //move computer
+                    var compu = getMeshes('compu', rendset);
+                    var loop_anim = [];
+                    for (var mesh of compu) {
 
-                    ], scene);
+                        anims.push({
+                            obj: mesh, prop: 'position',
+                            dims: ['x', 'y', 'z'], val: new BABYLON.Vector3(12, 5, -4)
+                        });
+                        anims.push({
+                            obj: mesh, prop: 'rotation',
+                            dims: ['x', 'y', 'z'], val: new BABYLON.Vector3(Math.PI, Math.PI, 0)
+                        });
+                        loop_anim.push({
+                            obj: mesh, prop: 'rotation',
+                            dims: ['x', 'y', 'z'], val: [new BABYLON.Vector3(Math.PI, Math.PI, 0), new BABYLON.Vector3(2*Math.PI, 2*Math.PI, 0)]
+                        });
+                    }
+
+                    animate(anims, scene);
+                    animate(loop_anim, scene, 3, true);
+                    // camera.position = campos;
+                    // camera.rotation = camrot;
+
                 },
                 function () {
+                    grid();
                     light.intensity = 1;
                     var campos = new BABYLON.Vector3(10, 6, 4);
                     //camera.position = campos;
 
                     var newscale = new BABYLON.Vector3(0.1, 0.1, 0.1);
 
-                    var anims = animate([/*{ obj: bulb_pointlight, prop: 'intensity', val: 0, dims: false},*/
-                        { obj: camera, prop: 'rotation', val: new BABYLON.Vector3(0.23794112936628264, 3.3, 0), dims: ['x', 'y', 'z'] }
-                    ], scene, 2);
+                    // var anims = animate([/*{ obj: bulb_pointlight, prop: 'intensity', val: 0, dims: false},*/
+                    //     { obj: camera, prop: 'rotation', val: new BABYLON.Vector3(0.23794112936628264, 3.3, 0), dims: ['x', 'y', 'z'] }
+                    // ], scene, 2);
 
                     //camera.setTarget(new BABYLON.Vector3(7, 3, -8));
-                    console.log(camera.rotation);
+
                     text_material = new BABYLON.StandardMaterial('text material', scene);
                     text_material.diffuseColor = new BABYLON.Color3(1, 1, 1);
                     text_material.alpha = 0;
@@ -744,8 +750,8 @@ var createScene = function () {
     walls3[3].doorSpaces = [mDoorSpace3];
 
     //material for masculinity madlib
-    var mascmat1 = buildMat(madlibs[5], 20, 1500, 1000, "masterWall", scene, "black", false, 'pink');
-    var mascmat2 = buildMat(madlibs[5], 40, 1800, 1500, "smallWall2", scene, "black", false, 'pink');
+    var mascmat1 = buildMat(madlibs[5], 20, 1500, 1000, "masterWall", scene, "black", false);
+    var mascmat2 = buildMat(madlibs[5], 40, 1800, 1500, "smallWall2", scene, "black", false);
 
     var masterWall = buildFromPlan(walls3, ply, height, { interiorUV: new BABYLON.Vector4(0.2, 0, 1, 1), exteriorUV: new BABYLON.Vector4(0.2, 0, 1, 1), interior: true }, scene, madlibs[5]);
     //masterWall.material = buildMat(madlibs[0], 30, 2000, 1000, "master ", scene, "black", true, 'purple');
@@ -865,7 +871,7 @@ var createScene = function () {
 
     //roll to desired room
     if (words.indexOf("") == -1) {
-        var room = 1;
+        var room = 8;
         (function () {
             for (var i = 0; i < room; i++) {
                 roomclick(i);
