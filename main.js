@@ -879,7 +879,7 @@ var createScene = function () {
 
     //roll to desired room
     if (words.indexOf("") == -1) {
-        var room = 8;
+        var room = 1;
         (function () {
             for (var i = 0; i < room; i++) {
                 roomclick(i);
