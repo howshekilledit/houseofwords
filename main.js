@@ -209,10 +209,6 @@ var createScene = function () {
     //initialize object variables for placement
 
     var glass;
-    var table;
-    var coke;
-    var blue_table;
-    var blue_coke
     var text_sculpt;
     var text_material;
 
@@ -245,10 +241,18 @@ var createScene = function () {
 
         //stage desk & computer
         placeObject('../how_models/antique_wooden_desk/', 'desk.obj', new BABYLON.Vector3(3, 0, -2), scene, 3, 'desk',
-        new BABYLON.Vector3(0, 0, 0), false);
+            new BABYLON.Vector3(0, 0, 0), false);
 
         placeObject('../how_models/retro_computer/', 'compu.obj', new BABYLON.Vector3(3, 3, -2), scene, 1, 'compu',
-        new BABYLON.Vector3(0, 0, 0), false, 1, false);
+            new BABYLON.Vector3(0, 0, 0), false, 1, false);
+
+        //stage 3D text
+        text_material = new BABYLON.StandardMaterial('text material', scene);
+        text_material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+        text_material.alpha = 0;
+        text_sculpt = threeDText(madlibs[4], new BABYLON.Vector3(5, 6, -16), scene,
+            new BABYLON.Vector3(Math.PI, Math.PI, Math.PI));
+        text_sculpt.material = text_material;
 
     });
 
@@ -367,7 +371,7 @@ var createScene = function () {
 
                     //END MIRROR ROOM
                 },
-                function(){
+                function () {
                     var campos1 = new BABYLON.Vector3(23, 5, -10);
                     //push in and morph coke
                     var anims = [{ obj: camera, prop: 'position', val: campos1, dims: ['x', 'y', 'z'] }];
@@ -381,7 +385,7 @@ var createScene = function () {
 
                     animate(anims, scene);
                 },
-                function(){
+                function () {
                     //mirror disappears
                     var campos = new BABYLON.Vector3(23, 6.5, -10);
                     var anims = [{ obj: glass.material, prop: 'alpha', dims: false, val: 0 },
@@ -416,7 +420,7 @@ var createScene = function () {
 
                     animate(anims, scene, 4);
                 },
-                function(){
+                function () {
                     //descartes
                     var campos3 = new BABYLON.Vector3(26, 5, -4);
                     var campos4 = new BABYLON.Vector3(18, 6, -3);
@@ -456,7 +460,7 @@ var createScene = function () {
                         loop_anim.push({
                             obj: mesh, prop: 'rotation',
                             dims: ['x', 'y', 'z'],
-                            val: [new BABYLON.Vector3(Math.PI, Math.PI, 0), new BABYLON.Vector3(Math.PI*2, Math.PI*2, 0)]
+                            val: [new BABYLON.Vector3(Math.PI, Math.PI, 0), new BABYLON.Vector3(Math.PI * 2, Math.PI * 2, 0)]
                         });
                     }
 
@@ -466,9 +470,20 @@ var createScene = function () {
                     // camera.rotation = camrot;
 
                 },
-                function(){
+                function () {
+                    //change compute color then track into outside
                     var compu = getMeshes('compu', rendset);
+                    var campos0 = new BABYLON.Vector3(9, 6, 6);
+                    var campos1 = new BABYLON.Vector3(3, 6, -12);
+                    var campos2 = new BABYLON.Vector3(4, 5, -12);
+                    var camrot = new BABYLON.Vector3(0, -3, 0);
                     var loop_anim = [];
+                    var text_appear = { obj: text_material, prop: 'alpha', val: [0, 0.2, 1], dims: false };
+                    var static_anim = [
+                        text_appear,
+                        { obj: camera, prop: 'position', val: [campos0, campos1, campos2], dims: ['x', 'y', 'z'] },
+                        { obj: camera, prop: 'rotation', val: [camera.rotation, camrot], dims: ['x', 'y', 'z'] }
+                    ];
                     for (var mesh of compu) {
                         loop_anim.push(
                             {
@@ -479,42 +494,21 @@ var createScene = function () {
                         )
 
                     }
-                    animate(loop_anim, scene, 3, true);
+                    animate(loop_anim, scene, 2, true);
+                    animate(static_anim, scene);
 
                 },
-                function () {
-                    grid();
-                    light.intensity = 1;
-                    var campos = new BABYLON.Vector3(10, 6, 4);
-                    //camera.position = campos;
-
-                    var newscale = new BABYLON.Vector3(0.1, 0.1, 0.1);
-
-                    // var anims = animate([/*{ obj: bulb_pointlight, prop: 'intensity', val: 0, dims: false},*/
-                    //     { obj: camera, prop: 'rotation', val: new BABYLON.Vector3(0.23794112936628264, 3.3, 0), dims: ['x', 'y', 'z'] }
-                    // ], scene, 2);
-
-                    //camera.setTarget(new BABYLON.Vector3(7, 3, -8));
-
-                    text_material = new BABYLON.StandardMaterial('text material', scene);
-                    text_material.diffuseColor = new BABYLON.Color3(1, 1, 1);
-                    text_material.alpha = 0;
-                    text_sculpt = threeDText(madlibs[4], new BABYLON.Vector3(8.5, 6, -3), scene,
-                        new BABYLON.Vector3(Math.PI, Math.PI, Math.PI));
-                    text_sculpt.material = text_material;
-                },
-
                 function () {
                     var light_anim = { obj: light, prop: 'intensity', val: 0, dims: false };
-                    var text_appear = { obj: text_material, prop: 'alpha', val: 1, dims: false };
-                    var housemat = house.material;
-                    var house_fade = { obj: house.material, prop: 'alpha', val: 0, dims: false };
-                    var anims = animate([light_anim, text_appear, house_fade], scene);
+                    var text_disappear = { obj: text_material, prop: 'alpha', val: 0, dims: false };
+
+                    animate([text_disappear], scene);
+
                 },
-                function () {
-                    var anims = animate([{ obj: blue_pointlight, prop: 'intensity', val: 0, dims: false }], scene);
-                    start.textContent = "You've reached the end! Time to reflect on what you've created, and perhaps to make your own room."
+                function(){
+                    start.textContent = "You've reached the end! Time to reflect on what you've created, and perhaps to make your own room.";
                 }
+
 
             ];
             //grid();
