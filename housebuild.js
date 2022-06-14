@@ -852,7 +852,7 @@ function discreteAnim(type, dim, start_val, sub_vals, frameRate, seconds) {
 }
 
 //load and place object in scene
-function placeObject(folder, file, position, scene, scale = 1, obj_name = "noname", rotation = new BABYLON.Vector3(0, 0, 0),  texture = new BABYLON.Color3(0.5, 0.5, 0.5), transparency = 1){
+function placeObject(folder, file, position, scene, scale = 1, obj_name = "noname", rotation = new BABYLON.Vector3(0, 0, 0),  texture = new BABYLON.Color3(0.5, 0.5, 0.5), transparency = 1, freezeBound = true){
 
     let object = BABYLON.SceneLoader.ImportMesh(
         null,
@@ -881,9 +881,12 @@ function placeObject(folder, file, position, scene, scale = 1, obj_name = "nonam
 
             //reduce render time with freezing operations
             mesh.freezeWorldMatrix();
-            mesh.doNotSyncBoundingInfo = true;
+
+            mesh.doNotSyncBoundingInfo = freezeBound;
+            console.log()
             mesh.name = obj_name + '-' + i;
             object_meshes.push(mesh);
+            console.log(obj_name, freezeBound);
 
 
            }

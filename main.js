@@ -248,7 +248,7 @@ var createScene = function () {
         new BABYLON.Vector3(0, 0, 0), false);
 
         placeObject('../how_models/retro_computer/', 'compu.obj', new BABYLON.Vector3(3, 3, -2), scene, 1, 'compu',
-        new BABYLON.Vector3(0, 0, 0), false);
+        new BABYLON.Vector3(0, 0, 0), false, 1, false);
 
     });
 
@@ -430,13 +430,13 @@ var createScene = function () {
                 function () {
                     //brain room
                     bathroomWall.material = buildMat(madlibs[3], 35, 2000, 800, "brain  ", scene, "black", false);
-                    var campos1 = new BABYLON.Vector3(11, 6, -3);
-                    var campos2 = new BABYLON.Vector3(11, 7, 6);
+
+                    var campos = new BABYLON.Vector3(11, 7, 6);
                     //camera.setTarget(new BABYLON.Vector3(11, 3, -6));
                     var camrot = new BABYLON.Vector3(0.4, 3 - 2 * Math.PI, 0);
                     //var camrot = new BABYLON.Vector3(0,0,0);
-                    var anims = [{ obj: camera, prop: 'position', val: [campos1, campos2], dims: ['x', 'y', 'z'] },
-                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: [camera.rotation, camrot] }];
+                    var anims = [{ obj: camera, prop: 'position', val: campos, dims: ['x', 'y', 'z'] },
+                    { obj: camera, prop: 'rotation', dims: ['x', 'y', 'z'], val: camrot }];
                     //var anims = [];
                     //move computer
                     var compu = getMeshes('compu', rendset);
@@ -445,20 +445,16 @@ var createScene = function () {
 
                         anims.push({
                             obj: mesh, prop: 'position',
-                            dims: ['x', 'y', 'z'], val: new BABYLON.Vector3(12, 5, -4)
+                            dims: ['x', 'y', 'z'], val: new BABYLON.Vector3(12, 3, -4)
                         });
                         anims.push({
                             obj: mesh, prop: 'rotation',
                             dims: ['x', 'y', 'z'], val: new BABYLON.Vector3(Math.PI, Math.PI, 0)
                         });
-                        loop_anim.push({
-                            obj: mesh, prop: 'rotation',
-                            dims: ['x', 'y', 'z'], val: [new BABYLON.Vector3(Math.PI, Math.PI, 0), new BABYLON.Vector3(2*Math.PI, 2*Math.PI, 0)]
-                        });
                     }
 
                     animate(anims, scene);
-                    animate(loop_anim, scene, 3, true);
+                    //animate(loop_anim, scene, 3, true);
                     // camera.position = campos;
                     // camera.rotation = camrot;
 
